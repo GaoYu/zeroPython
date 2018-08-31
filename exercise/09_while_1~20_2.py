@@ -5,10 +5,12 @@ i = 1
 
 while i <= 20:
     print(i, end= ' ')
-    i += 1
+
     if i % 5 == 0:
         print('\n')
-
+    i += 1
+else:
+    print()
 print("程序结束！ i= ", i)
         
 
