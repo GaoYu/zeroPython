@@ -124,212 +124,73 @@ $(document).ready(function () {
 </div>
 
 
-<div class="section level1">
-<h1>列表</h1>
-<div id="-in-not-in" class="section level2">
-<h2>列表的 in / not in</h2>
-<p>1.判断一个元素是否存在容器中，在返回True,否则返回False</p>
-<p>2.not in 与 in运算符相反</p>
-<p>示例：</p>
-<p>x = [1, ‘two’, 3.14, ‘四’]<br />
-1 in x #True<br />
-3 not in x #True</p>
-</div>
-<div id="-index--slice" class="section level2">
-<h2>列表的索引 index /切片 slice</h2>
-<div class="section level3">
-<h3>列表的索引语法：</h3>
-<p>列表[整数表达式]</p>
-</div>
-<div class="section level3">
-<h3>用法：</h3>
-<p>列表的索引取值与字符串的索引取值规则完全相同</p>
-<p>列表的索引分为正向索引和反向索引</p>
-<p>示例：<br />
-x = [1, ‘two’, 3.14, ‘四’]</p>
-<p>print(x[1]) # ‘two’</p>
-</div>
+<div id="-tuple" class="section level1">
+<h1>元组 tuple</h1>
+<p><strong>定义</strong></p>
+<p>元组是不可改变的序列，同list一样，元组可以存放任意类型的元素，一旦元组生成，则它不可以改变。</p>
+<p><strong>表示方式</strong></p>
+<p>用小括号（）括起来，单个元素括起来用’,’区分是单个对象还是元组</p>
+<p><strong>空元组创建</strong></p>
+<p>t = ()</p>
+<p><strong>非空元组的字面值</strong></p>
+<ul>
+<li>t = 200,</li>
+<li>t = (20,)</li>
+<li>t = (1, 2, 3)</li>
+</ul>
+<div class="section level2">
+<h2>元组的构造函数</h2>
+<p>tuple()生成一个空的元组， 等同于()<br />
+tuple(iterable)用于可迭代对象生成一个元组</p>
+<p><strong>示例：</strong></p>
+<pre class="python"><code>t = tuple()
+t = tuple(range(10))
+t = tuple('hello')
+t = tuple([1,2,3,4])</code></pre>
 </div>
 <div class="section level2">
-<h2>列表的索引赋值</h2>
-<p>列表是可变的序列，可以通过索引赋值改变列表的元素</p>
-<div class="section level3">
-<h3>语法：</h3>
-<p>列表[索引] = 表达式</p>
-</div>
-<div class="section level3">
-<h3>示例：</h3>
-<p>x = [1, 2, 3, 4]</p>
-<p>x[2] = 3.14 #改变第三个元素</p>
-<p>y = [1, 2, 3, 4]</p>
-<p>id(x)</p>
-<p>id(y) #id(x)不一致</p>
-<p>x[2] = 3.14</p>
-<p>id(x) #id(x)没变化</p>
-<p>x += ‘123’</p>
-<p>id(x) #id(x)已经不一样了,’123’新建的</p>
-<p>x += [1,2,3,4] #id(x)没有变化,改变的是列表内值</p>
-</div>
-</div>
-<div class="section level2">
-<h2>列表切片</h2>
+<h2>元组的算术运算</h2>
 <ul>
-<li>列表[:]</li>
-<li>列表的[::]</li>
-<li>列表的切片取值返回一个列表，规则等同于字符串的切片规则</li>
+<li><p>‘+’ ‘+=’ ‘<em>’ ‘</em>=’<br />
+用法同列表一致</p></li>
+<li><p>‘&lt;’ ‘&lt;=’ ‘&gt;=’ ‘==’ ‘!=’<br />
+规则与列表完全相同</p></li>
+<li>in/not in</li>
+<li>索引取值</li>
+<li><p>切片取值<br />
+规则与列表完全相同</p></li>
 </ul>
-<p>示例： - x = list(range(8)) - y = x[1:9:2] # y = [1, 3, 5, 7]</p>
-</div>
-<div class="section level2">
-<h2>列表的切片赋值语法</h2>
-<p>列表[切片] = 可迭代对象</p>
-<div class="section level3">
-<h3>说明：</h3>
-<p>切片复制的赋值运算符的右侧必须是一个可迭代对象</p>
-</div>
-<div id="-1" class="section level3">
-<h3>示例：</h3>
+<p><strong>区别</strong></p>
+<p>元组是不可改变对象，不支持索引赋值和切片赋值</p>
+<p><strong>元组方法</strong></p>
 <ul>
-<li>L = [2, 3, 4] # 0~2</li>
-<li>L[0:1] =[1.1, 2.2]</li>
-<li>L[3:3] = [5, 6]</li>
+<li>help(tuple)</li>
+<li>T.index</li>
+<li>T.count</li>
 </ul>
-</div>
-<div id="1" class="section level3">
-<h3>切片步长不为1</h3>
-<p>对于步长不为1的切片赋值，赋值运算符右侧的可迭代对象提供的元素的个数一定要等于切片的段数。</p>
+<p><strong>用于序列的函数</strong></p>
+<p>len, max, min , sum, all , any</p>
+<p><strong>三个构造函数</strong></p>
+<p>用于创建相应的对象 - str(obj) - list(iterable) - tuple(iterable)</p>
+<p><strong>其他函数</strong></p>
 <ul>
-<li>L = list(range(1,9))</li>
-<li>L[1::2] = [2.2, 4.4, 6.6, 8.8]</li>
-<li>print(L)</li>
+<li>reversed(seq)<br />
+返回反向顺序的可迭代对象</li>
+<li>sorted(iterable, reversed=False)<br />
+返回已排序的列表</li>
 </ul>
-</div>
-</div>
-<div id="del" class="section level2">
-<h2>del语句</h2>
-<p>用于删除列表元素</p>
-<div id="-1" class="section level3">
-<h3>语法</h3>
-<ul>
-<li>del 列表[索引]</li>
-<li>del 列表[切片]</li>
-</ul>
-</div>
-<div id="-2" class="section level3">
-<h3>示例：</h3>
-<ul>
-<li>L = [1, 2, 3, 4, 5, 6]</li>
-<li>del L[0]</li>
-<li>del L[::2] #L = [2, 4, 6]</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2>常见的序列函数</h2>
-<ul>
-<li>len(x)</li>
-<li>max(x)</li>
-<li>min(x)</li>
-<li>sum(x)</li>
-<li>any(x) #真值测试，如果列表中一个值为真则为True,否则返回False。</li>
-<li>all(x) #真值测试，如果列表中所有制为真则返回True，只要一个为假则返回False</li>
-</ul>
-</div>
-<div class="section level2">
-<h2>列表的方法</h2>
-<p>help(list)</p>
-<p>| L.append(object) -&gt; None – append object to end |<br />
-| clear(…) | L.clear() -&gt; None – remove all items from L |<br />
-| copy(…) | L.copy() -&gt; list – a shallow copy of L |<br />
-| count(…) | L.count(value) -&gt; integer – return number of occurrences of value |<br />
-| extend(…) | L.extend(iterable) -&gt; None – extend list by appending elements from the iterable |<br />
-| index(…) | L.index(value, [start, [stop]]) -&gt; integer – return first index of value. | Raises ValueError if the value is not present. |<br />
-| insert(…)<br />
-| L.insert(index, object) – insert object before index |<br />
-| pop(…) | L.pop([index]) -&gt; item – remove and return item at index (default last). | Raises IndexError if list is empty or index is out of range. |<br />
-| remove(…) | L.remove(value) -&gt; None – remove first occurrence of value. | Raises ValueError if the value is not present. |<br />
-| reverse(…) | L.reverse() – reverse <em>IN PLACE</em> |<br />
-| sort(…) | L.sort(key=None, reverse=False) -&gt; None – stable sort <em>IN PLACE</em></p>
-</div>
-<div id="-split-join" class="section level2">
-<h2>字符串文本解析方法 split 和join</h2>
-<div id="s.splitsepnone" class="section level3">
-<h3>S.split(sep=None)</h3>
-<p>将字符串，使用sep作为分隔符分割S字符串，返回分割后的字符串列表，当不给定参数时，用空白字符作为分隔符进行分割 ###S.join(iterable) 用可迭代对象中的字符串，返回一个中间用S进行分割的字符串</p>
-<p>例： - s = ‘Beijing is capital’ - L = s.split(‘’) #L = [‘Beijing’,‘is’,‘capital’] - s1 = “-”.join(L)</p>
-</div>
-</div>
-<div id="deep-copy-shallow-copy" class="section level2">
-<h2>深拷贝deep copy与浅拷贝 shallow copy</h2>
-<div class="section level3">
-<h3>浅拷贝</h3>
-<p>是指在复制过程中只复制一层变量，不会复制深层变量绑定的对象的复制过程。</p>
-<p>浅拷贝可以共用同一个对象。</p>
-<ul>
-<li>L = [3.1, 3.2]</li>
-<li>L1 = [1, 2, L] #[1, 2, [3.1, 3.2]]</li>
-<li>L2 = L1.copy() #[1, 2, [3.1, 3.2]]<br />
-</li>
-<li>L2[2][0] = 3.14</li>
-<li>print(L) #[3.14, 3.2]</li>
-<li>print(L1) #[1, 2, [3.14, 3.2]]</li>
-<li>print(L2) #[1, 2, [3.14, 3.2]]</li>
-</ul>
-</div>
-<div class="section level3">
-<h3>深拷贝</h3>
-<p>只拷贝可变的部分变量，不可变对象不拷贝</p>
-<ul>
-<li>import copy #导入copy模块</li>
-<li>L = [3.1, 3.2]</li>
-<li>L1 = [1, 2, L]</li>
-<li>L2 = copy.deepcopy(L1) #深拷贝</li>
-<li>print(L1) #[1, 2, [3.1, 3.2]]</li>
-<li><p>print(L2) #[1, 2, [3.1, 3.2]]</p></li>
-<li>L2[2][0] = 3.14 #L1 ,L2 改变的部分不一致了</li>
-<li>print(L1) #[1, 2, [3.1, 3.2]]</li>
-<li><p>print(L2) #[1, 2, [3.14, 3.2]]</p></li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2>列表推导式</h2>
-<p>列表推导式是用可迭代对象依次生成带有多个元素的列表的表达式</p>
-<div class="section level3">
-<h3>作用：</h3>
-<p>用简易的方法生产列表</p>
-</div>
-<div id="-2" class="section level3">
-<h3>语法：</h3>
-<ul>
-<li><p>[表达式 for 变量 in 可迭代对象]</p></li>
-<li><p>[表达式 for 变量 in 可迭代对象 if 真值表达式]</p></li>
-</ul>
-</div>
-<div id="-3" class="section level3">
-<h3>示例：</h3>
-<p>#生成一个数值为1~9的平方的列表</p>
-<ul>
-<li>L = [X*X for x in range(1,10)]</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2>列表推导式的嵌套</h2>
-<div id="-3" class="section level3">
-<h3>语法</h3>
-<p>[表达式1 for 变量1 in 可迭代对象1 if 真值表达式1 for 变量2 in 可迭代对象2 if 真值表达式2 …]</p>
-</div>
-<div id="-4" class="section level3">
-<h3>示例</h3>
-<ul>
-<li>L1 = [2, 3, 5]</li>
-<li>L2 = [7, 11, 13]</li>
-</ul>
-<p>将L1 中的全部元素与L2中的全部元素依次相乘后放到L3列表中</p>
-<p>L3 = [x * y for x in L1 for y in L2]</p>
-<p>print(L3)</p>
-</div>
+<p><strong>示例：</strong></p>
+<pre class="python"><code>for x in reversed(&quot;ABCD&quot;):
+    print(x)  #D B C A
+    
+L = [8, 6, 3, 5, 7]
+L2 = sorted(L)
+print(L2)  #[3, 5, 6, 7, 8]
+
+L3 = sorted(L, reversed = True)
+print(L3)  #[8, 7, 6, 5, 3]
+
+print(L) #保持不变</code></pre>
 </div>
 </div>
 
