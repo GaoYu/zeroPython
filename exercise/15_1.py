@@ -13,11 +13,22 @@ print(L)
 
 L = [1, 3, 2, 1, 6, 4, 2]
 L2=[]
-for x in L:
-    if x not in L2:
-        L2.append(x)
+#for x in L:
+#    if x not in L2:  # 不在L2中将其添加进来
+#        L2.append(x)
+
+#方法2
+L2 = L.copy()
+for x in L2:
+    if L2.count(x) > 1:
+        L2.remove(x)
+
+
 print(L)
 print(L2)
+
+#
+
 
  #3.生产前40个斐波那契数（Fibonacci）1 1 2 3 5 8 13....（自第三个起，之后的数字为前两个数之和）
  #要求，将这些数保存在列表中，最后打印列表中的这些数
@@ -25,21 +36,19 @@ print(L2)
  
 L = []
 
-f0 = 1
-f1 = 1
-f2 = 0
+a = 0 
+b = 1
 
-for x in range(40):
-    if x <1:
-        L = [1,1]
-    f2 = f0 + f1
-    f0 = f1
-    f1 =f2
-    L.append(f2)
+
+while len(L) <40:
+    a,b = b, a+ b
+    L.append(a)
+    
+#方法2
+L = [1,1]
+
+while len(L) < 40:
+    L.append(L[-1] + L[-2])
+
 print(L)
-    
-
-    
-
-
     

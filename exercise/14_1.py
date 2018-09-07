@@ -58,12 +58,18 @@ print(s2)
 #例数：153 = 1 **3 + 5**3 + 3**3
 
 
-
+#方法一
 for x in range(1,10):
     for y in range(10):
         for z in range(10):
-            n = int(str(x) + str(y) + str(z))
+            n = x * 100 + y * 10 + z
             if n == x**3 + y**3 + z**3:
                 print(n)
-                break
 
+#方法二
+for x in range(100,1000):
+    bai = x // 100
+    shi = x % 100 //10
+    ge = x % 10
+    if x == bai **3 + shi **3 + ge ** 3:
+        print(x)
