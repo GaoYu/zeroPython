@@ -125,372 +125,49 @@ $(document).ready(function () {
 
 
 <div class="section level2">
-<h2>函数</h2>
-<p>函数是可以重复执行的语句块，可以重复使用</p>
-<p><strong>作用：</strong></p>
+<h2>函数式编程</h2>
+<p>函数式编程是指用一系列函数解决问题</p>
+<p><strong>函数是一等公民</strong></p>
 <ul>
-<li>用于封装语句块，提高代码的重用性<br />
-</li>
-<li>定义用户级别的函数</li>
+<li>函数本身可以赋值给变量，赋值后变量绑定函数</li>
+<li>允许函数本身作为参数传入另一个函数</li>
+<li>允许返回一个函数</li>
 </ul>
-<p><strong>函数定义语句 def 语句的语法：</strong></p>
-<pre class="python"><code>def 函数名（形参列表）：
-    语句块</code></pre>
-<p><strong>说明</strong></p>
-<ul>
-<li>函数的名字就是语句块的名称</li>
-<li>函数名的命名规则与变量名相同（函数名必须为标识符）</li>
-<li>函数有自己的名字空间，在函数外部不可以访问函数内部的变量，在函数内部可以访问函数外部的变量，通常让函数处理外部数据需要用参数给函数传入一些数据</li>
-<li>函数的参数列表可以为空</li>
-<li>语句部分不能为空。如果为空需要填充pass语句</li>
-</ul>
-<pre class="python"><code>#def 定义函数
-def say_hello():
-    print(&quot;helllo world!&quot;)
-    print(&quot;hello tarena!&quot;)
-    print(&quot;hello everyone!!!&quot;)
-
-#调用函数
-say_hello()</code></pre>
-<p><strong>函数的调用</strong></p>
-<p>函数名（实际调用传递参数列表）</p>
-<p>注：实际调用传递参数以后称为实参</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>函数调用是一个表达式</li>
-<li>如果没有return语句，此函数执行完毕后返回None对象</li>
-<li>如果函数需要返回其他的对象需要用到return语句</li>
-</ul>
-</div>
-<div id="return-" class="section level2">
-<h2>return 语句</h2>
-<p><strong>语法</strong></p>
-<ul>
-<li>return [表达式] 代表可以省略</li>
-</ul>
-<p><strong>作用</strong></p>
-<ul>
-<li>用于函数中，结束当前函数的执行，返回到调用该函数的地方，同时返回一个对象的引用关系</li>
-</ul>
-<p><strong>说明</strong></p>
-<ul>
-<li>return语句后跟的表达式可以省略，省略后相当于return None</li>
-<li>如果函数没有return语句，则函数执行完最后一条语句后返回None（相当于在最后加了一条return None语句）</li>
-<li>函数调用一定会返回一个对象的引用</li>
-</ul>
-</div>
-<div class="section level2">
-<h2>函数的参数传递</h2>
-<p><strong>传递方式</strong></p>
-<pre><code>+ 位置传递 \
-    序列传参
-+ 关键字传递 \
-    字典关键字传参</code></pre>
-<p><strong>位置传参</strong></p>
-<p>实际参数（实参）的对应关系与形式（形参）的对应关系是按照位置来依次对应的</p>
-<p>示意：</p>
-<pre class="python"><code>def myfun(a, b, c)
-    pass
-    
-myfun(1, 2, 3)</code></pre>
-<p>说明：</p>
-<p>实际参数和形式参数通过位置进行传递的匹配，实参个数必须与形参个数相同</p>
-<p><strong>序列传参</strong></p>
-<p>序列传参是指在函数调用过程中，用“*”将序列拆解后按照位置传参的方式进行参数传递</p>
-<p>示例</p>
-<pre class="python"><code>def myfun(a, b, c):
-    pass
-
-s = [1, 2, 3]
-myfun(*s)
-s2 = &quot;ABC&quot;
-myfun(*s2)</code></pre>
-<p><strong>关键字传参</strong></p>
-<p>关键字传参是指传参时，按形参的名称给形参赋值，实参和形参按名称进行匹配</p>
-<p><strong>示例</strong></p>
-<pre class="python"><code>def myfun(a, b, c):
-    pass
-
-myfun(b = 22, c = 33, a = 11) </code></pre>
-<p><strong>说明</strong></p>
-<p>实参和形参可以不按位置匹配</p>
-<p><strong>字典关键字传参</strong></p>
-<p>是指实参为字典，将字典用“**“拆解后进行关键字传参</p>
-<p><strong>示例</strong></p>
-<pre class="python"><code>def myfun(a, b, c):
-    pass
-  
-d = {'c' :33, 'b':22, 'a':11}
-myfun(**d)</code></pre>
-<p><strong>说明</strong></p>
-<ul>
-<li>字典的键名和形参名必须一致</li>
-<li>字典键名必须为字符串</li>
-<li>字典键名要在形参中存在</li>
-</ul>
-<p><strong>函数的综合传参</strong></p>
-<p>函数传参方式，在能确定形参能唯一匹配到相应实参的情况下可以任意组合</p>
-<p><strong>示例</strong></p>
-<pre class="python"><code>def myfun(a, b, c):
-    pass
-    
-myfun(100, *[200, 300])  #正确
-myfun(*'AB', 300)        #正确
-myfun(100, c = 300, b=200) #正确
-myfun(1, **{'c':3, 'b':2}) #正确
-myfun(**{'c':3, 'b':2}, a = 1) #正确
-
-myfun(b = 2, c=3, 1)          #错误,不能确定1给谁</code></pre>
-</div>
-<div class="section level2">
-<h2>函数形参</h2>
-<p><strong>函数的缺省形参</strong></p>
-<p><strong>语法</strong></p>
-<pre class="python"><code>def  myfun(形参名1=默认实参1,
-           形参名2=默认实参2,
-           ...)</code></pre>
-<p><strong>示例：</strong></p>
-<pre class="python"><code>def info(name, age=1, address='未填写'):
-    print(name, &quot;今年&quot;,
-          age, &quot;岁,家庭地址是：&quot;, address)
-          
-info('tarena', 15)
-info('小魏',20, '北京朝阳区')
-info('小李')</code></pre>
-<p><strong>说明</strong></p>
-<p>1.缺省参数必须自右至左依次存在，如果一个参数有缺省数，则其右侧的所有参数都必须有缺省参数</p>
-<p>如：</p>
-<pre class="python"><code>def test(a, b = 10, c):  #错误示例
-    pass</code></pre>
-<p>2.缺省参数可以有0个或多个，甚至全部都有缺省参数。</p>
-</div>
-<div class="section level2">
-<h2>形参定义方式</h2>
-<ul>
-<li>位置形参</li>
-<li>星号元组形参</li>
-<li>命名关键字形参</li>
-<li>双星号字典形参</li>
-</ul>
-<p><strong>位置形参</strong></p>
-<p>语法：</p>
-<pre class="python"><code>def myfun(形参名1, 形参名2, ...);
-    语句块</code></pre>
-<p><strong>星号元组形参：</strong></p>
-<p>语法：</p>
-<pre class="python"><code>def myfun(*元组形参名)：
-    语句块</code></pre>
-<p>作用：</p>
-<p>收集多余位置形参传参</p>
-<p>说明：</p>
-<p>元组形参名常用：“args”</p>
-<p><strong>命名关键字形参：</strong></p>
-<p>语法：</p>
-<pre class="python"><code>def myfun(*, 命名关键字形参):
-    语句
-    
-def myfun(*args, 命名关键字形参)：
-    语句</code></pre>
-<p>作用：</p>
-<p>要求传参时，所有的参数都必须用关键字传参或字典关键字传参</p>
+<p><strong>函数的可重入性</strong></p>
+<p>可重入性是指一个函数传参一定，则结果一定</p>
+<p>要求：</p>
+<p>def定义的函数不要访问除局部变量以外的变量</p>
 <p>示例：</p>
-<pre class="python"><code>def fn(*, d, e):
-    print(&quot;d=&quot;, d)
-    print(&quot;e=&quot;, e)
-
-fn(d = 100, e = 200)  #合法
-#fn(1, 2)             #不合法，不能用位置传参
-
-def fn(a,b,*, d, e):
-    pass
-fn(1,2, d=100,e=200) 
-
-def f1(a,b,*args, c, d):
-    pass
-f1(1,2,c=3,d=4)</code></pre>
-<p><strong>双星号字典形参：</strong></p>
-<p>语法：</p>
-<pre class="python"><code>def 函数名(**字典形参名):
-    语句</code></pre>
-<p>作用：</p>
-<p>收集多余的关键字形参</p>
-<p>说明：</p>
-<p>通常双星号字典形参（**kwargs)</p>
-<pre class="python"><code>
-#此示例示意双星号字典形参kwargs收集多余的关键字传参
-def func(**kwargs):
-    print(&quot;关键字参数个数是：&quot;, len(kwargs))
-    print(&quot;kwargs = &quot;, kwargs)
-
-func(name= 'tarena', age = 15)</code></pre>
-<p><strong>参数说明</strong></p>
-<p>缺省参数、位置形参、星号元组形参、命名关键字形参和双星号字典形参可以混合使用</p>
-<p>函数参数自左向右的顺序为：</p>
-<ul>
-<li>位置形参</li>
-<li>星号元组形参</li>
-<li>命名关键字形参</li>
-<li>双星号字典形参</li>
-</ul>
-<pre class="python"><code>def f1(a, b, *args, c, **kwargs):
-    print(args)
-    print(&quot;kwargs是：&quot;,kwargs)
-#f1(1, 2, 3, 4, d=6, c=5, e= 7)
-f1(*&quot;hello&quot;,d = 6, **{'c':5, 'e':7})</code></pre>
-</div>
-<div class="section level2">
-<h2>函数的不定长参数</h2>
-<pre class="python"><code>def fn(*args, **kwargs):
-    pass
-    
-    #可以接收任意的位置传参和关键字传参
-def fn(*args, **kwargs):
-    print(args)
-    print(kwargs)
-fn(1,2,3,a=4,b=5)</code></pre>
-</div>
-<div class="section level2">
-<h2>全局变量和局部变量</h2>
-<p><strong>局部变量</strong></p>
-<ul>
-<li>定义在函数内部的变量成为局部变量（函数的形参也是局部变量）</li>
-<li>局部变量只能在函数内部使用</li>
-<li>局部变量在函数调用时才能被创建，在函数调用之后会自动销毁</li>
-</ul>
-<p><strong>全局变量</strong></p>
-<ul>
-<li>定义在函数外部，模块内部的变量成为全局变量</li>
-<li>全局变量，所有的函数都可以直接访问（函数内部不能直接将其赋值）</li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>a = 10
-b = 20
-
-def fy(c):
-   d = 40
-   a = 20        #创建局部变量a，不会修改全局变量a
-   print(a, b, c, d)
-
-print(&quot;--------------------&quot;)
-fy(30)
-
-print(&quot;a=&quot;, a)</code></pre>
-<p><strong>局部变量说明</strong></p>
-<ul>
-<li>在函数内首先对变量赋值是创建局部变量，再次为变量赋值是修改局部变量的绑定关系</li>
-<li>在函数内部的赋值语句不会对全局变量造成影响</li>
-<li>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个模块范围内访问</li>
-</ul>
-<p><strong>globals和locals函数</strong></p>
-<ul>
-<li>globals() 返回当前全局作用域内变量的字典</li>
-<li>locals() 返回当前局部作用域内变量的字典</li>
-</ul>
-<p>示例：</p>
-<pre class="python"><code>a = 1
-b = 2
-c = 3
-def f1(c, d):
-    e = 300
-    print(&quot;locals()返回：&quot;, locals())
-    print(&quot;-------------------------&quot;)
-    print(&quot;globals()返回：&quot;, globals())
-    for k, v in globals().items():
-        print(k, &quot;--&gt;&quot;, v)
-        
-    print(c)               #局部变量复制100
-        
-    print(globals()['c'])  #全局变量 3
-f1(100, 200)</code></pre>
-</div>
-<div class="section level2">
-<h2>函数变量</h2>
-<p><strong>函数名是变量，它在创建函数时绑定一个函数</strong></p>
-<p>示例：</p>
-<pre class="python"><code>def f1():
-    print(&quot;f1被调用&quot;)
-fx = f1
-fx   #等同于f1()
-
-del f1
-fx   #同上</code></pre>
-<p>示例2</p>
-<pre class="python"><code>def f1():
-    print(&quot;hello&quot;)
-def f2():
-    print(&quot;world&quot;)
-f1, f2 = f2, f1 #交换两个变量
-f1()   #</code></pre>
-<p><strong>一个函数可以作为另一个函数的参数传递</strong></p>
-<p>示例</p>
-<pre class="python"><code>def f1():
-    print(&quot;hello&quot;)
-def f2():
-    print(&quot;world&quot;)
-
-def fx(fn):
-    print(fn)
-    fn()         #调用谁
-
-###3个全局变量
-fx(f1)           #此语句在做什么
-fx(f2)</code></pre>
-<pre class="python"><code>def fx(a, fn):
-    return fn(a)
-  
-L = [5, 9, 4, 6]
-print('最大值：',  fx(L, max))
-print('最小值：',  fx(L, min))
-print('和是：',  fx(L, sum))</code></pre>
-<p><strong>函数作为返回值</strong></p>
-<pre class="python"><code>def myadd(x, y): #计算两个数相加
+<pre class="python"><code>#以下是不可重入的函数
+y = 200
+def myadd(x):
     return x + y
-def mymul(x, y): #计算两个数相乘
-    return x * y
+print(myadd(10))  #210
 
-def get_op(s = &quot;加&quot;):  #s代表操作字符串：'加'，'乘'
-    if s == '加' or s == '+':
-        return myadd
-    elif s == '乘' or s == '*':
-        return mymul
-    else:
-        return &quot;输入有误&quot;
-
-
-#主函数：
-def main():
-    while True:
-        s = input('请输入计算公式：') #如：10 加 20
-        L = s.split()
-        a, s, b = L
-        a, b = int(a), int(b)
-        fn = get_op(s)
-        print(&quot;结果是：&quot;, fn(a, b))  #结果是30</code></pre>
-<p><strong>函数的嵌套定义</strong></p>
-<p>函数的嵌套定义是指一个函数里用def语句来创建其他的函数</p>
-<pre class="python"><code>def fn_outer():
-    print(&quot;fn_outer被调用！&quot;)
-    def fn_inner():
-        print(&quot;fn_innter被调用&quot;)
-    fn_inner()
-    fn_inner()
-    print(&quot;fn_outer调用结束&quot;)
-    return fn_inner
-    
-fn_outer()
-#fn_inner() #此处报错
-
-fx = fn_outer()
-fx()         #调用fn_outer函数内部函数fn_inner</code></pre>
-<p><strong>python作用域</strong></p>
-<p>作用域也叫名字空间，是访问变量时，查找变量名的范围空间</p>
-<p><strong>python四种作用域</strong></p>
+#可重入的函数myadd
+def myadd(x, y):
+    return x + y
+print(myadd(10,20))</code></pre>
+</div>
+<div class="section level2">
+<h2>高阶函数</h2>
+<p>满足下列一个条件的函数</p>
 <ul>
-<li>局部作用域 Local function L</li>
-<li>外部嵌套函数作用域 Enclosing Function Locals E</li>
-<li>函数定义所在模块（文件）的作用域 Global（Mudule） G</li>
-<li>python内置模块的作用域 Builtin(python) B</li>
+<li>函数接收一个或多个函数作为参数传入</li>
+<li>函数返回一个函数</li>
 </ul>
+<div id="map" class="section level3">
+<h3>map函数</h3>
+</div>
+</div>
+<div id="filtersoted" class="section level2">
+<h2>filter与soted函数</h2>
+</div>
+<div class="section level2">
+<h2>递归函数</h2>
+</div>
+<div class="section level2">
+<h2>闭包</h2>
 </div>
 
 

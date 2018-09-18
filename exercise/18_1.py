@@ -18,33 +18,37 @@
 #判断i是否是素数  
 def  isprime(i):#素数从2开始向后遍历      
     for x in range(2, i):
+        if i <= 1:
+            return False
+        #判断能否被2整除的数
         if i % x  == 0:
             return False
-            break
-    else:
         return True
 
 
 #返回m,n素数列表
+#def prime_m2n(m, n):
+#    L = []
+#    for i in range(m, n):
+#        if isprime(i):
+#           L.append(i)
+#    return L
+#方法2——列表推导式
 def prime_m2n(m, n):
-    L = []
-    for i in range(m, n):
-        if i >1:
-            if isprime(i):
-                L.append(i)
-        
-    return L
+    return [x for x in range(m,n) if isprime(x)]
 
 L = prime_m2n(1,10)
 print(L)
 #frimes()
 def primes(n):
-    L = []
-    for i in range(n):
-        if i > 1:
-            if isprime(i):
-                L.append(i)
-    return L
+    #L = []
+    #for i in range(n):
+    #    if i > 1:
+    #        if isprime(i):
+    #            L.append(i)
+    #return L
+    #方法2，列表推到式
+    return prime_m2n(0,n)
 
 L = primes(20)
 print(L)

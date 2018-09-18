@@ -50,4 +50,10 @@ def output_student(L):
         line = "|%s|%s|%s|" % t   #t是元组
         print(line)
 
-
+#验证测试：
+L = input_student()
+output_student(L)
+print("再添加几个学生信息")
+L += input_student()
+print("添加学生后的学生信息如下:")
+output_student(L)
