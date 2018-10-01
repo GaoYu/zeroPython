@@ -46,4 +46,4 @@ def sum_myfac(n):
     #2.函数式
     return sum(map(myfac,range(1,n+1)))
 
-sum_myfac(2)
+sum_myfac(20)

@@ -17,9 +17,4 @@ while 1 <= n:
     print('hello world!')
     n -= 1
     
-
-
-
-
-
 print("程序结束！ n=",n)
