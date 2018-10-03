@@ -124,269 +124,219 @@ $(document).ready(function () {
 </div>
 
 
-<div id="sys" class="section level2">
-<h2>系统模块sys</h2>
-<p><a href="https://docs.python.org/3/library/sys.html?highlight=sys#module-sys" class="uri">https://docs.python.org/3/library/sys.html?highlight=sys#module-sys</a></p>
-</div>
-<div class="section level2">
-<h2>自定义模块</h2>
-<p>参考 mymod1.py<br />
-test_mymod1.py</p>
-<pre class="python"><code>#此模块是用户自定义模块
-#假设小张写了此模块
-
-def myfun1():
-    print('正在调用mymod1里面的myfun1()')
-
-def myfun2():
-    print('正在调用mymod1里面的myfun2()')
-
-name1 = 'audi'
-
-name2 = 'tesla'</code></pre>
-<pre class="python"><code>import mymod1#导入模块mymod1.py
-mymod1.myfun1()#调用mymod1里的myfun1()函数
-print(mymod1.name1)
-
-from mymod1 import name2
-print(&quot;mymod1里的name2为：&quot;, name2)
-from mymod1 import *
-myfun2()
-</code></pre>
-<p>自定义模块的模块名必须符合“标识符”的命名规则（同变量名）</p>
-<p><strong>模块有各自独立的作用域</strong></p>
-<p><strong>模块化编程优点</strong></p>
+<div id="iteratorgenerator" class="section level1">
+<h1>迭代器iterator和生成器generator</h1>
+<div id="iterator" class="section level2">
+<h2>迭代器iterator</h2>
 <ul>
-<li>利于多人合作开发</li>
-<li>使代码更易于维护</li>
-<li>提高代码的复用率</li>
-<li>有利于解决变量名冲突问题</li>
+<li>是指用iter(可迭代对象)函数返回的对象（示例）</li>
+<li>迭代器可以用next(it)函数获取可迭代对象的数据</li>
 </ul>
-</div>
-<div class="section level2">
-<h2>模块的导入与加载</h2>
-<div id="import-" class="section level3">
-<h3>import语句 搜索模块的路径顺序</h3>
-<ul>
-<li>1.搜索程序运行时的路径</li>
-<li>2.sys.path 提供的路径</li>
-<li>3.搜索内置模块</li>
-</ul>
-<p><strong>sys.path是一个存储模块搜索的列表</strong></p>
-<ul>
-<li>1.把自定义模块放在相应的路径下，可以导入</li>
-<li>2.可以把自定义模块的路径添加在sys.path列表中（sys.path.append）</li>
-</ul>
-</div>
 <div class="section level3">
-<h3>模块的加载过程</h3>
+<h3>迭代器函数</h3>
 <ul>
-<li>模块导入时，模块的所有语句会执行</li>
-<li>如果一个模块已经导入，则再次导入时不会重新执行模块内的语句</li>
+<li>iter(iterable) 从可迭代对象中返回一个迭代器，iterable必须是一个能提供迭代器的可迭代对象</li>
+<li>next(iterator) 从迭代器iterator中获取下一条记录，如果无法获取下一条记录，则触发StopIteration异常</li>
 </ul>
-<p><strong>模块的重新加载</strong></p>
-<pre class="python"><code>import mymod3
-import  imp
-imp.reload(mymod3)#重新加载</code></pre>
-</div>
-<div class="section level3">
-<h3>模块导入和执行的过程</h3>
+<p><strong>说明</strong></p>
 <ul>
-<li>先搜索相关的路径找模块（.py文件）</li>
-<li>判断是否有此模块对应的.pyc文件，如果存在pyc文件且比.py文件新，则直接加载.pyc文件</li>
-<li>否则用.py文件直接生成.pyc后再进行加载</li>
+<li>迭代器是访问可迭代对象的一种方式</li>
+<li>迭代器只能向前取值，不会后退</li>
+<li>用iter函数可以返回一个可迭代对象的迭代器</li>
 </ul>
-<p><strong>pyc模块的编译文件</strong></p>
-<p>mymod1.py —-编译——-mymod1.pyc ——解释执行——python3</p>
-</div>
-<div class="section level3">
-<h3>模块的属性</h3>
-<p><strong>属性的实质是模块内的全局变量</strong></p>
-<p><strong>模块内预置的属性</strong></p>
-<ul>
-<li>__doc__属性
-<ul>
-<li>用来绑定模块的文档字符串（模块内第一个没有赋值给任何变量的字符串为模块的文档字符串）</li>
-</ul></li>
-<li>__file__属性
-<ul>
-<li>用来绑定模块对应的文档路径名</li>
-<li>对于内建模块，不绑定路径（没有__file__属性）</li>
-<li>对于其他模块，绑定路径名的字符串</li>
-</ul></li>
-<li>__name__属性
-<ul>
-<li>用来记录模块的自身名字（记录模块名）</li>
-<li>用来判断是否为主模块（最先运行的模块）</li>
-<li>当此模块为主模块是，__name__绑定‘<strong>main</strong>’</li>
-<li>当此模块不是主模块时，此属性绑定模块名</li>
-</ul></li>
-<li>__all__列表
-<ul>
-<li>用来存放可导出属性的字符串列表</li>
-<li>当用from import *语句导入时，只导入__all__列表内的属性</li>
-</ul></li>
-</ul>
-<p><strong>模块的隐藏属性</strong></p>
-<p>模块中以’_’开头的属性，在from import * 语句导入时，将不被导入，通常称这些属性为隐藏属性</p>
-<p><strong>随机模块random</strong></p>
-<pre><code>  用于模拟或生成随机输出的模块 \
-
-  python_base_docs_html/随机模块random.html</code></pre>
-<p><strong>二分查找</strong></p>
-</div>
-</div>
-<div id="-package" class="section level2">
-<h2>包（模块包） package</h2>
-<p>将模块以文件夹的组织形式进行分组管理的方法，有利于防止命名冲突，可以在需要时加载一部分模块而不是全部模块。</p>
 <p><strong>示例</strong></p>
+<pre class="python"><code>#用while语句循环访问列表
+L = [2, 3, 5, 7]
+it = iter(L)  #用L生成一个迭代器
+while True:
+    try:
+        x = next(it)
+        print(x)
+    except StopIteration:
+        print(&quot;迭代结束&quot;)
+        break</code></pre>
+</div>
+</div>
+<div id="-generatorpython2.5" class="section level2">
+<h2>生成器 Generator(python2.5以后有)</h2>
+<p>生成器是能够动态提供数据的对象，生成器对象也是可迭代对象（实例）</p>
+<p><strong>两种生成器</strong></p>
 <ul>
-<li>mypack/
-<ul>
-<li><strong>init</strong>.py</li>
-<li>menu.py</li>
-<li>games/
-<ul>
-<li><strong>init</strong>.py</li>
-<li>contra.py</li>
-<li>supermario.py</li>
-<li>tanks.py</li>
-</ul></li>
-<li>office/
-<ul>
-<li><strong>init</strong>.py</li>
-<li>excel.py</li>
-<li>word.py</li>
-</ul></li>
-</ul></li>
+<li>1.生成器函数</li>
+<li>2.生成器表达式</li>
 </ul>
-<p><strong>“<strong>init</strong>”文件</strong></p>
+<div class="section level3">
+<h3>生成器函数</h3>
+<p>含有 <strong>yield</strong>语句的函数是生成器函数，此函数被调用时将返回一个生成器对象</p>
+<p><strong>yield语句</strong></p>
+<pre class="python"><code>yield 表达式</code></pre>
 <ul>
-<li>常规包中必须存在的文件<br />
-</li>
-<li><p>’<strong>init</strong>.py’会在包加载时被自动调用</p></li>
-<li>编写此包的内容</li>
-<li>在内部填写文档字符串</li>
-<li><p>在__init__.py内可以加载此包所依赖的一些其他模块</p></li>
+<li>yield用于def函数中,目的是将此函数作为生成器函数使用</li>
+<li>yield用来生成数据，共迭代器next(it)函数使用</li>
 </ul>
-<p><strong>包的导入</strong></p>
-<p>三条import语句可以导入包（同模块的导入规则）</p>
-<pre class="python"><code>import 包名 [as 包别名]
-import 包名.模块名[as 模块新名]
-import 包名.子包名.模块名
+<p><strong>示例</strong></p>
+<pre class="python"><code>def myyield():
+    '''此函数为生成器函数'''
+    print(&quot;即将生成2&quot;) #只有next才会执行
+    yield 2  #生成2
+    print(&quot;即将生成3&quot;)
+    yield 3  #生成3
+    print(&quot;即将生成5&quot;)
+    yield 5  #生成5
+    print(&quot;myyield函数返回&quot;)  
+#用for 语句访问myyield函数
 
-from 包名 import 模块名[as 模块新名] 
-from 包名.子包名 import 模块名[as 模块新名] 
-from 包名.子包名.模块名 import 属性名[as 属性新名]
+for x in myyield():
+    print(x)
 
-from 包名 import *
-from 包名.模块名 import * </code></pre>
-<p>**包的__init__.py内的__all__列表**</p>
+gen = myyield()
+it = iter(gen)
+next(it)</code></pre>
+<p><strong>生成器函数说明</strong></p>
 <ul>
-<li>用来记录此包内哪些包或模块在用from 包 import *语句导入时是否被调用</li>
-<li>只对from import *语句起作用</li>
+<li>生成器函数的调用将返回一个生成器对象，生成器对象是一个可迭代对象</li>
+<li>在生成器函数调用return时会生成一个StopIteration异常来通知next(it)函数不再能提供数据</li>
 </ul>
+</div>
+<div class="section level3">
+<h3>生成器表达式</h3>
+<p><strong>语法</strong></p>
+<pre class="python"><code>(表达式 for 变量 in 可迭代对象 [if 真值表达式])</code></pre>
+<p><strong>作用</strong></p>
+<p>用推导式的形式生成一个新的生成器</p>
+<p><strong>示例</strong></p>
+<pre class="python"><code>gen = (x**2 for x in range(1,5))
+it = iter(gen)
+next(it) #1
+next(it) #4
+next(it) #9
+next(it) #16
+next(it) #StopIteration</code></pre>
+<p><strong>优点</strong></p>
+<p>不占用内存空间</p>
+<p><strong>列表推导式与生成器表达式区别</strong></p>
+<pre class="python"><code>L = [1,2,3,4]
+gen = (x for x in L) #gen 绑定生成器
+lst = [x for x in L] #lst 绑定列表
+L[1] = 222  #改变原列表的第二个元素
+for x in lst:
+    print(x)  #1,2,3,4不变
+
+for x in gen:
+    print(x)  #1,222,3,4,第二个数是222</code></pre>
+</div>
 </div>
 <div class="section level2">
-<h2>包的相对导入</h2>
-<p>是值包内模块的相互导入</p>
-<p><strong>语法</strong></p>
-<pre class="python"><code>from 相对路径包或模块 import 属性或模块名
+<h2>迭代工具函数</h2>
+<p>迭代工具函数的作用是生成一个个性化的可迭代对象</p>
+<ul>
+<li>zip(iter1 [, iter2, iter3,…])</li>
+</ul>
+<p>返回一个zip对象，此对象用于生成一个元组，此元组的个数由最小的可迭代对象决定</p>
+<ul>
+<li>enumerate(iterable[, start])</li>
+</ul>
+<p>生成带索引的枚举对象，返回迭代类型为索引-值对（index-value)对，默认索引从0开始，也可以使用start绑定</p>
+<p><strong>示例zip</strong></p>
+<pre class="python"><code>numbers = [10086, 10000, 10010, 95588]
+names = ['中国移动','中国电信','中国联通']
+for n, a in zip(numbers, names):
+    print(a, '的客服号码是', n)
+for x in zip(numbers, names):
+    print x
+#zip生成一个字典
+d = dict(zip(names, numbers)    #zip对象</code></pre>
+<p><strong>示例enumerate</strong></p>
+<pre class="python"><code>names = ['中国移动','中国电信','中国联通']
+for x in enumerate(names):
+    print(x)
+    #索引-元素
+    index, element = x
+    print('索引',index,'对应的元素是',element)
 
-from 相对路径包或模块 import *</code></pre>
-<p><strong>相对路径</strong></p>
-<ul>
-<li>. 代表当前目录</li>
-<li>..代表上一级目录</li>
-<li>…代表上二级目录</li>
-<li>…..依次类推</li>
-</ul>
-<p>相对导入时不能超出包的外部</p>
+#索引从100开始
+for x in enumerate(names, start = 100):
+    print(x)</code></pre>
 </div>
-<div class="section level2">
-<h2>包的加载路径</h2>
-<p>同模块的加载路径相同</p>
+<div id="bytesbytearray" class="section level2">
+<h2>字节串bytes和字节数组bytearray</h2>
+<div id="bytes" class="section level3">
+<h3>字节串bytes</h3>
+<p><strong>作用</strong></p>
+<p>存储以字节为单位的数据</p>
 <ul>
-<li>档期那文件夹</li>
-<li>sys.path给出的路径</li>
+<li>字节串是不可变的字节序列</li>
+<li>字节是0~255之间的整数</li>
 </ul>
-</div>
-<div id="exception" class="section level2">
-<h2>异常exception</h2>
-<p><strong>错误</strong></p>
+<p><strong>创建空字节串的字面值</strong></p>
 <ul>
-<li>错误是指由于逻辑或语句等导致一个程序无法正常执行的问题</li>
-<li>有些错误是无法预知的</li>
+<li>b’’</li>
+<li>b“”</li>
+<li>b’‘’’’’</li>
+<li>b“”“”“”</li>
+<li>B’’</li>
+<li>B“”</li>
+<li>B’‘’’’’</li>
+<li>B“”“”“”</li>
 </ul>
-<p><strong>异常</strong></p>
+<p><strong>非空字节串的字面值</strong></p>
 <ul>
-<li>异常时程序出错时标识的一种状态</li>
-<li><p>当异常发生时，程序不会再向下执行，而转去调用此函数的地方，待处理此错误并恢复正常状态</p></li>
-<li>通知上层调用者有错误产生需要处理</li>
-<li><p>用作信号通知</p></li>
+<li>b’ABCD’</li>
+<li>b’4141’</li>
 </ul>
-<div id="try-" class="section level3">
-<h3>try 语句</h3>
+<p><strong>字节串的构造函数</strong></p>
 <ul>
-<li>try - except语句</li>
-<li>try - finally语句</li>
+<li>bytes()　生成一个空的字节串，等同于b’’</li>
+<li>bytes(整型可迭代对象) 用可迭代对象初始化一个字节串</li>
+<li>bytes(整数n) 生成n个值为零的字节串</li>
+<li>bytes(字符串，encoding=‘utf-8’) 用字符串的转换编码生成一个字节串</li>
 </ul>
-<p><strong>try - except</strong></p>
-<p>尝试捕捉异常，将程序转为正常状态并继续执行</p>
-<pre class="python"><code>try:
-    可能触发异常的语句
-except 错误类型1[as 变量1]:
-    异常处理语句1
-except 错误类型2[as 变量2]:
-    异常处理语句2
-except (错误类型3,错误类型4,...)[as 变量3]:
-    异常处理语句3
-...
-exept:
-    异常处理语句other
-else:
-    未发生异常时执行的语句
-finally:
-    最终执行的语句</code></pre>
-<p><strong>语法说明</strong></p>
-<ul>
-<li>as 子句用于绑定错误对象的变量，可以省略不写</li>
-<li>except 子句可以有一个或多个，但至少要有一个</li>
-<li>else 子句最多只能有一个，也可以省略不写</li>
-<li>finally 子句最多只能有一个，也可以省略不写</li>
-</ul>
-<p><strong>try - finally</strong></p>
-<pre class="python"><code>try:
-    可能触发异常的语句
-finally:
-    最终语句</code></pre>
-<ul>
-<li>finally 子句不可以省略</li>
-<li>一定不存在except子句</li>
-<li>通常try-finally语句用来做触发异常时必须要处理的事情，无论异常是否发生，finally子句都会被执行</li>
-<li>try-finally语句不会改变程序的（正常/异常）状态</li>
-</ul>
-</div>
-<div id="raise" class="section level3">
-<h3>raise语句</h3>
-<p>触发一个错误，让程序进入异常状态</p>
-<pre class="python"><code>raise 异常类型
+<p><strong>字节串的运算</strong></p>
+<p>+, +=, <em>,</em>=</p>
+<p>&lt;,&lt;=,&gt;,&gt;=,==,!=</p>
+<p>in,not in</p>
+<p>索引/切片</p>
+<p><strong>示例</strong></p>
+<pre class="python"><code>b = b'abc' + b'123' #b = b'abc123'
+b += b'ABC'         #b=b'abc123ABC'
+b'ABD'&gt;b'ABC'       #True
 
-raise 异常对象</code></pre>
-</div>
-<div id="assert" class="section level3">
-<h3>assert语句（断言语句）</h3>
-<p><strong>语法</strong></p>
-<pre class="python"><code>assert 真值表达式，错误数据（通常是字符串）</code></pre>
-<p>当真值表达式为False时，用错误数据创建一个AssertionError类型的错误，并进入异常状态</p>
-<p><strong>类似于</strong></p>
-<pre class="python"><code>if 真值表达式 == False:
-    raise AssertionError(错误数据)</code></pre>
-<p><strong>为什么要用异常处理机制</strong></p>
+b = b'ABCD'
+65 in b            #True
+b'A' in b          #True
+
+b= b'ABCD'
+b[-1]              #68</code></pre>
+<p><strong>用于序列函数</strong></p>
+<p>len,max,min,sum,all,any</p>
+<p><strong>bytes与str区别</strong></p>
 <ul>
-<li>在程序调用层数较深时，向调主函数传递错误信息需要用return语句层层传递比较麻烦，所以用异常处理机制</li>
+<li>bytes 存储字节（0~255）</li>
+<li>str存储Unicode字符（0~65535）</li>
 </ul>
-<p>参考built_house.py</p>
+<p><strong>bytes与str的转换</strong></p>
+<ul>
+<li><p>str —–编码(encode)——bytes  b=s.encode(‘utf-8’)</p></li>
+<li><p>bytest —–解码(decode)—–str  s = b.decode(‘utf-8’)</p></li>
+</ul>
+</div>
+<div id="bytearray" class="section level3">
+<h3>字节数组bytearray</h3>
+<p>可变的字节序列</p>
+<p><strong>构造函数</strong></p>
+<ul>
+<li>bytearray() 创建空的字节数组</li>
+<li>bytearray(整数)</li>
+<li>bytearray(整数可迭代对象)</li>
+<li>bytearray(字符串,encoding=‘utf-8’)</li>
+</ul>
+<p>以上参数等同于字节串</p>
+<p><strong>字节数组的运算</strong></p>
+<p>+, +=, <em>,</em>=</p>
+<p>&lt;,&lt;=,&gt;,&gt;=,==,!=</p>
+<p>in,not in</p>
+<p>索引/切片</p>
+</div>
 </div>
 </div>
 
