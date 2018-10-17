@@ -4,9 +4,12 @@
 #       print(x)   # 1, 4, 7
 
 
-def myrange(start, end, step):
+def myrange(start, stop=None, step=1):
+    if stop is None:
+        stop = start
+        start = 0
     i = start
-    while start <= i < end:
+    while  i < stop:
         yield i
         i += step
 

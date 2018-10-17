@@ -8,7 +8,7 @@
 
 def is_prime(x):
     '''判断一个数是否为素数'''
-    if x<=1:
+    if x<=2:
         return False
     for i in range(2, x):
         if x % i == 0:

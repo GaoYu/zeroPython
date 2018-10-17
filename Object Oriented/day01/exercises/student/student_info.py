@@ -6,20 +6,29 @@
 #       student_info.py 放学生信息相关的操作
 
 #1)此函数添加学生信息，并返回学生信息的字典的列表
+import os
+os.chdir('C:/Users/yugao/zeroPython-master/Object Oriented/day01/exercises/student')
+
+#导入学生类
+from student import Student
+
 def input_student():
     L = []
     while True:
-        stud = {}                   #字典容易被更新，只能放在循环里面
-        names = input("学生姓名：")
-        if not names:
+        #字典容易被更新，只能放在循环里面
+        name = input("学生姓名：")
+        if not name:
             break
-        ages = int(input("学生年龄："))
-        scores = int(input("学生成绩："))
-        stud['name'] = names
-        stud['age'] = ages
-        stud['score'] = scores
+        age = int(input("学生年龄："))
+        score = int(input("学生成绩："))
+
+        d = Student(name, age, score)
+        #stud = {}
+        #stud['name'] = names
+        #stud['age'] = ages
+        #stud['score'] = scores
     
-        L.append(stud)
+        L.append(d)
     return L
 
 #2) 查看所有学生信息  
@@ -29,9 +38,9 @@ def output_student(L):
     print('+----------+----------+----------+')
 
     for d in L:  #d绑定的是元组
-        t = (d['name'].center(10), 
-             str(d['age']).center(10), 
-             str(d['score']).center(10))
+        t = (d.name.center(10), 
+             str(d.age).center(10), 
+             str(d.score).center(10))
         line = "|%s|%s|%s|" % t   #t是元组
         print(line)
 

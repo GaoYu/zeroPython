@@ -13,37 +13,31 @@
 #    把从键盘读取的信息存入'phone_book.txt'文件中
 #      然后用 sublime text 打开并查看写入的内容
 
-def input_phone_number():
-    '''此函数用来读取用户输入，形成元组列表并返回
-    '''
+def get_number():
+    '''此函数用来读取用户输入，形成列表并返回'''
     L = []
-
-    while True:
-        
-        name = input("请输入姓名：")
-        if not name:
+    while True:        
+        i = int(input("请输入整数："))
+        if i < 0:
             break
-        number = input("请输入电话：")
-        L.append((name,number))  #形成元组列表
+        L.append(i)  #形成元组列表
     return L
 
-def write_to_file(lst, filename = 'phone_book.txt'):
+def save_to_file(lst, filename = 'numbers.txt'):
     '''将lst列表内的数据保存到文件filenames中'''
     try:
-        f = open(filename, 'w')
-        #利用循环写入
-        for name, number in lst:
-            f.write(name)
-            f.write(',') #分隔符
-            f.write(number)
+        f = open(filename, 'w') #打开文件
+        #利用循环写入文件
+        for i in lst:
+            f.write(str(i))
             f.write('\n')#换行
 
-        f.close()
+        f.close()                #关闭文件
     except OSError:
         print("写入文件失败！")
 
 
 if __name__ == '__main__':
-    L = input_phone_number()
+    L = get_number()
     print(L)
-    write_to_file(L)
+    save_to_file(L)
