@@ -25,40 +25,9 @@ class Student:
 
     def __del__(self):
         Student.count -= 1 #析构方法，对象销毁时个数减少
-    
-    def get_age(self):
-        return self.age
-
+        
     def get_score(self):
         return self.score
-    
-    def set_score(self, score):
-        '''此方法用于制定设置成绩时的规则'''
-        if 0 <= score <= 100:
-            self.score = score
-            return
-        raise ValueError('不合法的成绩信息'+ str(score))
-    
-    #共Output调用
-    def get_infos(self):
-        return (self.name, self.age, self.score)
-    #判断是不是某某学生
-    def is_name(self, n):
-        '''判断n是否与self的名字相同'''
-        return self.name == n
-
-    def write_to_file(self, file):
-        file.write(self.name)
-        file.write(',')
-        file.write(str(self.age))
-        file.write(',')
-        file.write(str(self.score))
-        file.write('\n')
-
-
-
-
-
 
     #类方法得到学生对象的个数
     @classmethod

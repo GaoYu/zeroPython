@@ -36,7 +36,7 @@ def main():
             elif s =='9':
                 save_to_file(docs)
             elif s =='10':
-                pass
+                docs = read_from_file()
             elif s =='q':
                 return #结束此函数执行，直接退出
 main()

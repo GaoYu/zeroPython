@@ -1,13 +1,3 @@
-#练习:
-#  1. 把学生管理系统划分为模块（把相关操作放在一个模块内）:
-#    建议:
-#       main.py 放主事件循环
-#       menu.py 放show_menu函数
-#       student_info.py 放学生信息相关的操作
-
-#1)此函数添加学生信息，并返回学生信息的字典的列表
-import os
-os.chdir('C:/Users/yugao/zeroPython-master/Object Oriented/day01/exercises/student')
 
 #导入学生类
 from student import Student
@@ -37,10 +27,11 @@ def output_student(L):
     print('|    name  |   age    |   score  |')
     print('+----------+----------+----------+')
 
-    for d in L:  #d绑定的是元组
-        t = (d.name.center(10), 
-             str(d.age).center(10), 
-             str(d.score).center(10))
+    for d in L:  
+        n, a, s = d.get_infos()
+        t = (n.center(10), 
+             str(a).center(10), 
+             str(s).center(10))
         line = "|%s|%s|%s|" % t   #t是元组
         print(line)
 
@@ -48,9 +39,12 @@ def output_student(L):
 def modify_student_info(lst):
     name = input("请输入要修改学生的姓名： ")
     for d in lst:
-        if d['name'] == name:
+        #if d['name'] == name:
+        if d.is_name(name):
+
             score = int(input("请输入新的成绩： "))
-            d['score'] = score
+            #d['score'] = score设置成绩
+            d.set_score(score)
             print("修改",name,'的成绩为',score)
             return
     else:
@@ -61,7 +55,8 @@ def modify_student_info(lst):
 def delete_student_info(lst):
     name = input("请输入要删除学生的姓名： ")
     for i in range(len(lst)): #从0开始把所有索引遍历一遍        
-        if lst[i]['name'] == name:
+        #if lst[i]['name'] == name:
+        if lst[i].is_name(name):
             del lst[i]
             print("已成功删除", name)
             return True
@@ -71,59 +66,60 @@ def delete_student_info(lst):
 # 5)  按成绩从高至低打印学生信息
 #   print("按成绩从高到低排序后")
 def get_score_rev(lst):
-    L = sorted(lst, key = lambda d : d['score'], reverse = True)
+    L = sorted(lst, 
+               key = lambda d : d.get_score(), 
+               reverse = True)
     return output_student(L)
 # 6)  按成绩从低至高打印学生信息
 def get_score(lst):
-    L = sorted(lst, key = lambda d : d['score'])
+    L = sorted(lst, 
+               key = lambda d : d.get_score())
     return output_student(L)
 
 # 7)  按年龄从大到小打印学生信息
 #print("按年龄从大到小排序后")
 def get_age_rev(lst):    #d为字典
-    L = sorted(lst, key = lambda d : d['age'], reverse = True)
+    L = sorted(lst, 
+               key = lambda d : d.get_age(), 
+               reverse = True)
     return output_student(L)
 # 8)  按年龄从小到大打印学生信息
 def get_age(lst):    #d为字典
-    L = sorted(lst, key = lambda d : d['age'])
+    L = sorted(lst, key = lambda d : d.get_age())
     return output_student(L)
 
 # 9)  保存信息到文件(si.txt)
-def save_to_file(lst, filename='si.txt'):
-    '''将列表存储在numbers.txt文件中'''
+def save_to_file(docs, filename='si.txt'):
+    '''将列表存储在si.txt文件中'''
     try:
         f = open(filename,'wt')
-        for n in lst:
-            for key,value in n.items():
-                f.write('"'+key+'"'+':'+str(value))
-                f.write(',')
-                
-            f.write('\n')
+        for stu in docs:
+            #n, a, s = stu.get_infos()
+            stu.write_to_file(f)
         f.close()
+        print("保存文件成功")
     except OSError:
-        print("结束输入")
+        print("保存失败")
 
 #       10) 从文件中读取数据(si.txt)
 def read_from_file(filename='si.txt', mode='rt'):
     '''读取文件存入列表'''
     L = []
-    #读取文件信息，形成元组后放入L
     try:
         f = open(filename, 'rt')
 
-        while True:
-            #读取数据
-            s = f.readline()
-            s = s.rstrip()
-            s = s.rstrip(',')
-            if not s:
-                break       
+        for line in f:
+            s = line.rstrip()#去掉右侧换行符
+            lst = s.split(',')  #得到列表['姓名','年龄','成绩']
+            name, age, score = lst
+            age = int(age)
+            score = int(score)
+            L.append(Student(name, age, score))
 
-            L.append(s)
-
-        return L
         f.close()
     except OSError:
         print("打开文件失败！")
+
+    return L
 
         

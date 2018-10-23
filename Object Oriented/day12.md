@@ -214,9 +214,12 @@ dog3 = dog1.__class__  #创建dog1的同类对象
 
 ###用于类的函数
 
-+ isinstance(obj, class_or_tuple) 返回这个对象obj是否为某个类class或某些类的实例，如果是则返回True,否则返回 False
-
++ isinstance(obj, class_or_tuple) 
+    + 返回这个对象obj是否为某个类class或某些类的实例，如果是则返回True,否则返回 False
 + type(obj) 返回对象的类型
++ issubclass(cls, class_or_tuple)
+    + 判读一个类是否继承自其他的类，如果此类cls是class或tuple中的一个派生子类则返回True，否则返回False
+
 
 **示例**
 ```python
@@ -224,11 +227,165 @@ class Dog:
     pass
 class Cat:
     pass
-    
 animal = Dog()
 isinstance(animal, Dog)  #True
 isinstance(animal, Cat)  #False
 isinstance(animal, (Cat, int, list)) #False
 instance(ainimal(Cat, int , dog))    #True
 
+class A:
+    pass
+class B(A):
+    pass
+class C(B):
+    pass
+issubclass(C, (A, B))  #True
+issubclass(C, (int, str)) #False
+
 ```
+
+###类变量class variable(也叫类属性)
+
+类变量是类的属性，此属性属于类
+
+**作用**
+
+用来记录类相关的数据
+
+**说明**
+
++ 类变量可以通过类直接访问
++ 类变量可以通过类的实例直接访问
++ 类变量可以通过此类的实例的__class__属性间接访问
+
+**示例**
+```python
+class Human:
+    count = 0 #创建类变量
+```
+
+###类的文档字符串
+
+类内第一个没有赋值给任何变量的字符串是类的文档字符串
+
+**说明**
+
++ 类的文档字符串用类的__doc__属性可以访问
++ 类的文档字符串可以用help()函数查看
+
+**实例**
+
+classdoc.py
+
+###类的__slots__列表
+
+**作用**
+
+限定一个类的实例只能有固定的属性（实例变量），通常为防止错写属性名而发生运行时错误。
+
+**示例**
+
+05_slots.py
+
+**说明**
+
+含有__slots__列表的类创建的实例对象没有__dict__属性，即此实例不用字典来保存对象的属性（实例变量）
+
+###类方法 @classmethod
+
+类方法是描述类的行为的方法，类方法属于类
+
+**说明**
+
++ 类方法需要用@classmethod装饰器定义
++ 类方法至少有一个形参，第一个形参用于绑定类，约定写为‘cls’
++ 类与该类的实例都可以调用类方法
++ 类方法不能访问此类创建的实例的属性（只能访问类变量）
+
+**示例**
+
+05_classmethod.py
+
+###静态方法@staticmethod
+
+静态方法不属于类，也不属于类的实例，它相当于定义在类内的普通函数，只是它的作用域属于类
+
+**示例**
+
+07_staticmethod.py
+
+
+##继承inheritance和派生derived
+
++ 继承，从已有的类中衍生出新类，新类具有原类的行为，并能扩展新的行为
+    + 继承是延续旧类的功能
++ 派生，是从一个已有类中衍生（创建）新类，在新类上可以添加新的属性和行为
+    + 派生是为了在旧类的基础上添加新的功能
+
+**作用**
+
++ 用继承派生机制,可以将一些共有功能加在基类中,实现代码的共享
++ 在不改变基类的基础上改变原有功能
+
+**继承/派生的名词**
+
++ 基类(base class)/超类(super class)/父类(father class)
++ 派生类(derived class) / 子类(child class)
+
+###单继承
+**语法**
+```python
+class 类名(基类名)：
+    语句块
+```
+
+**说明**
+
+单继承是指派生类由一个基类衍生出来的类
+
+**示例**
+
+08_inherit.py
+09_inherit2.py
+
+**继承说明**
+
++ 任何类都直接或间接继承自object类
++ object类是一切类的超类（祖类）
+
+**类的__base__属性**
+
+__base__属性用来记录类的基类（父类）
+
+###覆盖 override
+
+**定义**
+
+覆盖是指在有继承关系的类中，子类中实现了与基类同名的方法，在子类实例调用该方法时，实例调用的是子类中的覆盖版本的方法，这种现象叫做覆盖。
+
+**示例**
+
+10_override.py
+
+**子类对象显示调用基类方法的方式**
+
+基类名.方法名(实例， 实际调用传参)
+
+###super函数
+
++ super(type, obj) 返回绑定超类的实例
++ super()  返回绑定超类的实例，等同于：
+    + super(__class__, 实力方法的第一个参数)，必须在方法内调用
+
+**示例**
+
+12_super.py
+
+###显示调用基类的初始化方法
+
+当子类中实现__init__方法时，基类的__init__方法并不会被自动调用，此时需要显示调用
+
+**示例**
+
+13_super.py
+
