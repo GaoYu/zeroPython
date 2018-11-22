@@ -124,323 +124,305 @@ $(document).ready(function () {
 </div>
 
 
-<div class="section level1">
-<h1>面向对象编程</h1>
-<p><strong>什么是对象</strong></p>
-<p>对象是指现实中的物体或实体</p>
-<p><strong>什么是面向对象</strong></p>
-<p>把一切看成对象（实例），让对象之间建立关联关系</p>
-<p><strong>对象的特征</strong></p>
+<div id="day01" class="section level1">
+<h1>Day01笔记</h1>
+<div id="mysql" class="section level2">
+<h2>1、MySQL概述</h2>
+<div class="section level3">
+<h3>1、什么是数据库</h3>
+<p>数据库是一个存储数据的仓库</p>
+</div>
+<div class="section level3">
+<h3>2、哪些公司在用数据库</h3>
+<p>金融机构、购物网站、游戏网站、论坛网站… …</p>
+</div>
+<div class="section level3">
+<h3>3、提供数据库服务的软件</h3>
 <ul>
-<li>对象有很多属性（名词）
+<li>1、软件分类
 <ul>
-<li>姓名、年龄、性别</li>
-<li>用变量存储属性</li>
+<li>MySQL、SQL_Server、Oracle、DB2、Mariadb、MongoDB ..</li>
 </ul></li>
-<li>对象有很多行为（动词）
+<li>2、在生产环境中，如何选择使用哪个数据库软件
 <ul>
-<li>学习、吃饭、睡觉</li>
-<li>用函数描述动作</li>
+<li>1、是否开源
+<ul>
+<li>1、开源软件
+<ul>
+<li>MySQL、Mariadb、MongoDB</li>
+</ul></li>
+<li>2、商业软件
+<ul>
+<li>Oracle、DB2、SQL_Server</li>
+</ul></li>
+</ul></li>
+<li>2、是否跨平台
+<ul>
+<li>1、不跨平台 ：SQL_Server</li>
+<li>2、跨平台
+<ul>
+<li>MySQL、Oracle、DB2、Mariadb、MongoDB</li>
+</ul></li>
+</ul></li>
+<li>3、公司类型
+<ul>
+<li>1、商业软件：政府部门、金融机构</li>
+<li>2、开源软件：游戏网站、购物网站、论坛网站…</li>
+</ul></li>
 </ul></li>
 </ul>
+</div>
+<div id="mysql" class="section level3">
+<h3>4、MySQL特点</h3>
+<pre><code>    1、关系型数据库
+        1、关系型数据库特点
+            1、数据是以行和列的形式存储的
+            2、这一系列的行和列成为表
+            3、表中的每一行叫一条记录
+            4、表中的每一列叫一个字段
+            5、表和表之间的逻辑关联叫关系
+            6、关系型数据库的核心内容是 关系 即 二维表
+        2、示例
+            1、关系型数据库存储
+                表1、学生信息表
+                    姓名     年龄  班级
+                    张三丰    25   AID1712
+                    金花婆婆  26   AID1711
+
+                表2、班级信息表
+                    班级    班主任
+                    AID1712 侯大大
+                    AID1711 孙大大
+            2、非关系型数据库存储
+                {姓名:&quot;张三丰&quot;,年龄:25,班级:&quot;1712&quot;,班主任:&quot;侯&quot;}
+                {姓名:&quot;张三丰&quot;,年龄:25,班级:&quot;1712&quot;,班主任:&quot;侯&quot;}
+    2、跨平台
+        可以在Unix、Linux、Windows上运行MySQL服务
+    3、支持多种编程语言
+        Python、java、php、... ...</code></pre>
+</div>
+</div>
+<div id="mysql" class="section level2">
+<h2>2、MySQL安装</h2>
+<pre><code>1、Ubuntu安装MySQL服务
+    1、安装服务端
+        sudo apt-get install mysql-server
+    2、安装客户端
+        sudo apt-get install mysql-client
+2、Windows安装MySQL服务
+    1、下载MySQL安装包(Windows)
+        mysql-install-**5.7**.msi
+    2、双击、按照教程安装即可</code></pre>
+</div>
+<div id="mysql" class="section level2">
+<h2>3、启动和连接Mysql服务</h2>
+<pre><code>1、服务端启动
+    1、查看Mysql服务的状态
+        sudo /etc/init.d/mysql status
+    2、启动Mysql服务
+        sudo /etc/init.d/mysql start
+    3、停止Mysql服务
+        sudo /etc/init.d/mysql stop
+    4、重启Mysql服务
+        sudo /etc/init.d/mysql restart
+2、客户端连接
+    1、命令格式
+        mysql -h主机名 -u用户名 -p密码
+        mysql -hlocalhost -uroot -p123456
+    2、本地连接可以省略 -h 选项
+        mysql -uroot -p123456
+    3、断开与服务器的连接
+        exit   |   quit  |   \q</code></pre>
+</div>
+<div id="sql" class="section level2">
+<h2>4、基本SQL命令</h2>
+<pre><code>1、SQL命令的使用规则
+    1、每条命令必须以 ; 结尾
+    2、SQL命令不区分字母大小写
+    3、使用 \c 终止命令的执行
+2、库的管理
+    1、库的基本操作
+        1、查看已有的库
+            show databases;
+        2、创建库(指定字符集)
+            create database 库名 default charset=utf8;
+        3、查看创建库的语句
+            show create database 库名;
+        4、查看当前所在库
+            select database();
+        5、切换库
+            use 库名;
+        6、查看库中已有表
+            show tables;
+        7、删除库
+            drop database 库名;
+    2、库的命名规则
+        1、可以使用数字、字母、_,但是不能是纯数字
+        2、库名区分字母大小写
+        3、库名具有唯一性
+        4、不能使用特殊字符和mysql关键字
+    3、练习
+        1、创建库AID1712db,指定字符集为utf8
+        2、进入到库AID1712db中
+        3、查看当前所在库
+        4、查看库中已有表
+        5、查看AID1712db的字符集
+        6、删除库AID1712db
+3、表的管理
+    1、表的基本操作
+        1、创建表
+            create table 表名(
+            字段名 数据类型,
+            字段名 数据类型,
+            ...
+            );
+        2、查看创建表的语句(字符集)
+            show create table 表名;
+        3、查看表结构
+            desc 表名;
+        4、删除表
+            drop table 表名;
+    2、注意
+        1、所有的数据都是以文件的形式存储在数据库目录下
+        2、数据库目录：/var/lib/mysql
+    3、练习
+        1、创建库python
+        2、在python库中创建表py_mysql,字段有如下三个
+            id kuname biaoname 数据类型自己定义
+        3、查看创建表的语句
+        4、查看py_mysql的表结构
+        5、删除表py_mysql
+4、表记录的管理
+    1、在表中插入记录
+        1、insert into 表名 values(值1),(值2),....;
+    2、查看表记录
+        1、select * from 表名;
+        2、select 字段名1,字段名2,... from 表名;
+    3、练习
+        1、查看所有的库
+        2、创建一个新库studb
+        3、在studb中创建一张表t1,字段有4个
+            id name age score 数据类型自己定义
+        4、查看t1的表结构
+        5、在表t1中随便插入两条记录
+        6、查看t1表中的所有记录
+        7、查看创建表t1的语句(字符集)</code></pre>
+</div>
 <div class="section level2">
-<h2>类</h2>
-<ul>
-<li>拥有相同属性和行为的对象分为一组，即为一个类</li>
-<li><p>类是用来描述对象的工具，用类可以创建同类对象</p></li>
-<li><p>车(类) ——-&gt; BYD E6(京A.88888) 实例<br />
-.—-&gt; BMW X5(京B.00000) 实例</p></li>
-<li><p>狗(类) ——–&gt; 小京巴 (户籍号: 000001)<br />
--—–&gt; 导盲犬 (户籍号: 000002)</p></li>
-<li><p>int(类) ——&gt; 100(对象/实例)<br />
--—-&gt; 200(对象/实例)</p></li>
-</ul>
-<div class="section level3">
-<h3>类的创建语句</h3>
-<p><strong>语法</strong></p>
-<pre class="python"><code>class 类名（继承列表）:
-    '''类的文档字符串'''
-    实例方法定义（类内的函数成为方法methon）
-    类变量定义
-    类方法定义
-    静态方法定义</code></pre>
-<p><strong>作用</strong></p>
-<ul>
-<li>创建一个类</li>
-<li>用于描述此类对象的行为和属性</li>
-<li>类用于创建此类的一个或多个对象（实例）</li>
-</ul>
+<h2>5、如何更改默认字符集</h2>
+<pre><code>1、方法
+    通过更改Mysql的配置文件实现
+2、步骤
+    1、获取root权限
+        sudo -i
+    2、修改mysql配置文件
+        vi /etc/mysql/mysql.conf.d/mysqld.cnf
+        [mysqld]
+        character_set_server = utf8
+    3、重启mysql服务
+        sudo /etc/init.d/mysql restart      </code></pre>
 </div>
-<div class="section level3">
-<h3>类和对象</h3>
-<p>类 | 对象 实例 class | object instance</p>
+<div class="section level2">
+<h2>6、客户端把数据存储到数据库服务器上的过程</h2>
+<pre><code>1、连接到数据库服务器 : mysql -uroot -p
+2、选择库 : use 库名;
+3、创建/修改表
+4、断开与数据库的连接 ：exit | quit | \q</code></pre>
 </div>
-<div class="section level3">
-<h3>构造函数</h3>
-<pre class="python"><code>表达式:
-    类名([创建传参列表])</code></pre>
-<p><strong>作用</strong></p>
-<p>创建这个类的实例对象，并返回此实例对象的引用关系</p>
-<p><strong>实例(对象)说明</strong></p>
-<ul>
-<li>实例有自己的作用域和名字空间，可以为该实例添加实例变量（属性）</li>
-<li>实例可以调用类方法和实例方法</li>
-<li>实例可以访问类变量和实例变量</li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Dog:
-    pass
-dog1 = Dog()</code></pre>
-</div>
-<div class="section level3">
-<h3>实例方法</h3>
-<pre class="python"><code>class 类名(继承列表):
-    def 实例方法名(self, 参数1,参数2,... ):
-        '''实例方法的文档字符串'''
-        语句块</code></pre>
-<p><strong>作用</strong></p>
-<p>用于描述一个对象的行为，让此类型的全部对象都拥有相同的行为</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>实例方法实质是函数，是定义在类内部的函数</li>
-<li>实例方法至少有一个形参，第一个形参代表调用这个方法的实例，一般命名为’self’</li>
-</ul>
-<p><strong>实例方法的调用语法</strong></p>
-<pre class="python"><code>实例.实例方法名（调用传参）
+<div class="section level2">
+<h2>7、数据类型</h2>
+<pre><code>1、数值类型(有符号signed 和 无符号unsigned)
+    1、整型
+        1、int 大整型(4个字节)
+            取值范围：0~2**32 -1
+        2、tinyint 微小整型(1个字节)
+            1、有符号(signed默认) -128~127
+            2、无符号(unsigned) 0~255
+        3、smallint 小整型(2个字节)
+            取值范围：0~65535
+        4、bigint 极大整型(8个字节)
+            取值范围：0~2**64 -1
+    2、浮点型
+        1、float(4个字节,最多显示7个有效位)
+            1、用法
+                字段名 float(m,n) m-&gt;总位数 n-&gt;小数位位数
+                float(5,2) 取值范围：-999.99~999.99
+            2、注意
+                1、浮点型插入整数时会自动补全小数位数
+                2、小数位如果多于指定的位数，会对下一位四舍五入
+        2、double(8个字节,最多显示15个有效位)
+            1、用法
+                字段名 double(m,n)
+        3、decimal(M+2个字节,最多显示28个有效位)
+            1、用法
+                decimal(M,D)
+2、字符类型
+    1、char(定长)
+        1、宽度取值范围：1~255
+        2、不给定宽度默认宽度为1
+    2、varchar(变长)
+        1、取值范围：1~65535
+        2、注意
+            1、varchar没有默认宽度,必须给定一个宽度
+            2、char和varchar使用时都给定宽度，但不能超过各自的范围
+        3、char 和 varchar的特点
+            1、char
+                浪费存储空间,性能高
+            2、varchar
+                节省存储空间,性能低
+        4、字符类型的宽度和数值类型的宽度的区别
+            1、数值类型的宽度为显示宽度,只用于select查询时使用,和占用存储空间大小无关,可用zerofill查看效果
+            2、字符类型的宽度超过则无法存储
+    3、练习
+        1、创建表stuinfo1712,utf8,字段要求：
+            学号 : id 要求显示宽度为3,位数不够用0填充
+            姓名 : name 变长，宽度20
+            班级 : class 定长，宽度为7
+            年龄 ：age 微小整型，不能输入负数
+            身高 ：height 浮点型，小数位数2位
+            工资 ：salary 浮点型，小数位2位，最大值99999.99
 
-类名.实例方法名(实例，调用传参)</code></pre>
+        2、在表中插入两条记录
+        3、查询表中记录，只显示姓名、年龄和工资
+            select name,age,salary from stuinfo1712;
+        4、查看表结构
+3、枚举类型
+    1、定义 ：字段值只能在列举的范围内选择
+    2、enum 单选(最多有65535个不同的值)
+        字段名 enum(值1,值2,...)
+    3、set 多选(最多有64个不同的值)
+        字段名 set(值1,值2,...)
+        likes set(&quot;Study&quot;,&quot;Girl&quot;,&quot;Python&quot;,&quot;MySQL&quot;)
+        &quot;Study,Gril&quot;
+4、日期时间类型
+    1、year ：年 YYYY
+    2、date ：日期 YYYYMMDD
+    3、time ：时间 HHMMSS
+    4、datetime ：日期时间 YYYYMMDDHHMMSS
+    5、timestamp ：日期时间 YYYYMMDDHHMMSS
+    6、注意
+        1、datetime不给值默认返回NULL
+        2、timestamp不给值默认返回系统当前时间</code></pre>
 </div>
-<div class="section level3">
-<h3>实例属性</h3>
-<p>每个实例都可以有自己的变量，此变量称为实例变量（也叫属性）</p>
-<p><strong>属性使用方法</strong></p>
-<p>实例.属性名</p>
-<p><strong>赋值规则</strong></p>
-<ul>
-<li>首次为属性赋值则创建此属性</li>
-<li>再次为属性赋值则必改变属性的绑定关系</li>
-</ul>
-<p><strong>作用</strong></p>
-<p>用来记录对象自身的数据</p>
-</div>
-<div class="section level3">
-<h3>属性的删除</h3>
-<p>用del语句可以删除一个对象的实例变量</p>
-<p><strong>语法</strong></p>
-<pre class="python"><code>del 对象.实例变量名</code></pre>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Cat:
-    pass
-  
-c1 = Cat()
-c1.color = '白色'
-print(c1.color)
-del c1.color   #删除属性
-print(c1.color) #属性错误，已删除</code></pre>
-</div>
-<div class="section level3">
-<h3>初始化方法</h3>
-<p>对新创建的对象添加实例变量（属性）或相应的资源</p>
-<p><strong>语法格式</strong></p>
-<pre class="python"><code>class 类名(继承列表):
-    def __init__(self[, 形参列表])：
-        语句块</code></pre>
-<p><strong>说明</strong></p>
-<ul>
-<li>初始化方法名必须为 <strong>init</strong>，不可变</li>
-<li>初始化方法会在构造函数创建实例后自动调用，且此实例自身通过第一个参数self传入__init__方法</li>
-<li>构造函数的实参将通过__init__方法的形参列表传入__init__方法中</li>
-<li>初始化方法内部如果需要返回则只能返回None</li>
-</ul>
-<p><strong>示例</strong></p>
-<p>05_init_method.py</p>
-</div>
-<div class="section level3">
-<h3>析构方法</h3>
-<pre class="python"><code>class 类名(继承列表):
-    def __del__(self):
-    语句块</code></pre>
-<p><strong>说明</strong></p>
-<p>对象销毁时被自动调用</p>
-<p><strong>作用</strong></p>
-<p>清理此对象所占用的资源</p>
-<p><strong>python不建议在析构方法内做任何事情，因为对象销毁的原因</strong></p>
-</div>
-<div class="section level3">
-<h3>预置实例属性</h3>
-<p>**__dict__属性**</p>
-<p>此属性绑定一个存储此实例自身变量的字典</p>
-<pre class="python"><code>class Dog:
-    pass
-dog1 = Dog()
-print(dog1.__dict__)
-dog1.kinds = '京巴'
-print(dog1.__dict__)</code></pre>
-<p>**__class__属性**</p>
-<p>此属性用来绑定创建此实例的类</p>
-<p>可以用于借助属性来访问创建实例</p>
-<pre class="python"><code>class Dog:
-    pass
-    
-dog1 = Dog()
-dog2 = Dog()
-dog3 = dog1.__class__  #创建dog1的同类对象</code></pre>
-</div>
-<div class="section level3">
-<h3>用于类的函数</h3>
-<ul>
-<li>isinstance(obj, class_or_tuple)
-<ul>
-<li>返回这个对象obj是否为某个类class或某些类的实例，如果是则返回True,否则返回 False</li>
-</ul></li>
-<li>type(obj) 返回对象的类型</li>
-<li>issubclass(cls, class_or_tuple)
-<ul>
-<li>判读一个类是否继承自其他的类，如果此类cls是class或tuple中的一个派生子类则返回True，否则返回False</li>
-</ul></li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Dog:
-    pass
-class Cat:
-    pass
-animal = Dog()
-isinstance(animal, Dog)  #True
-isinstance(animal, Cat)  #False
-isinstance(animal, (Cat, int, list)) #False
-instance(ainimal(Cat, int , dog))    #True
-
-class A:
-    pass
-class B(A):
-    pass
-class C(B):
-    pass
-issubclass(C, (A, B))  #True
-issubclass(C, (int, str)) #False
-</code></pre>
-</div>
-<div id="class-variable" class="section level3">
-<h3>类变量class variable(也叫类属性)</h3>
-<p>类变量是类的属性，此属性属于类</p>
-<p><strong>作用</strong></p>
-<p>用来记录类相关的数据</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>类变量可以通过类直接访问</li>
-<li>类变量可以通过类的实例直接访问</li>
-<li>类变量可以通过此类的实例的__class__属性间接访问</li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Human:
-    count = 0 #创建类变量</code></pre>
-</div>
-<div class="section level3">
-<h3>类的文档字符串</h3>
-<p>类内第一个没有赋值给任何变量的字符串是类的文档字符串</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>类的文档字符串用类的__doc__属性可以访问</li>
-<li>类的文档字符串可以用help()函数查看</li>
-</ul>
-<p><strong>实例</strong></p>
-<p>classdoc.py</p>
-</div>
-<div id="__slots__" class="section level3">
-<h3>类的__slots__列表</h3>
-<p><strong>作用</strong></p>
-<p>限定一个类的实例只能有固定的属性（实例变量），通常为防止错写属性名而发生运行时错误。</p>
-<p><strong>示例</strong></p>
-<p>05_slots.py</p>
-<p><strong>说明</strong></p>
-<p>含有__slots__列表的类创建的实例对象没有__dict__属性，即此实例不用字典来保存对象的属性（实例变量）</p>
-</div>
-<div id="-classmethod" class="section level3">
-<h3>类方法 <span class="citation">@classmethod</span></h3>
-<p>类方法是描述类的行为的方法，类方法属于类</p>
-<p><strong>说明</strong></p>
-<ul>
-<li><a href="mailto:类方法需要用@classmethod装饰器定义">类方法需要用@classmethod装饰器定义</a></li>
-<li>类方法至少有一个形参，第一个形参用于绑定类，约定写为‘cls’</li>
-<li>类与该类的实例都可以调用类方法</li>
-<li>类方法不能访问此类创建的实例的属性（只能访问类变量）</li>
-</ul>
-<p><strong>示例</strong></p>
-<p>05_classmethod.py</p>
-</div>
-<div id="staticmethod" class="section level3">
-<h3><a href="mailto:静态方法@staticmethod">静态方法@staticmethod</a></h3>
-<p>静态方法不属于类，也不属于类的实例，它相当于定义在类内的普通函数，只是它的作用域属于类</p>
-<p><strong>示例</strong></p>
-<p>07_staticmethod.py</p>
-</div>
-</div>
-<div id="inheritancederived" class="section level2">
-<h2>继承inheritance和派生derived</h2>
-<ul>
-<li>继承，从已有的类中衍生出新类，新类具有原类的行为，并能扩展新的行为
-<ul>
-<li>继承是延续旧类的功能</li>
-</ul></li>
-<li>派生，是从一个已有类中衍生（创建）新类，在新类上可以添加新的属性和行为
-<ul>
-<li>派生是为了在旧类的基础上添加新的功能</li>
-</ul></li>
-</ul>
-<p><strong>作用</strong></p>
-<ul>
-<li>用继承派生机制,可以将一些共有功能加在基类中,实现代码的共享</li>
-<li>在不改变基类的基础上改变原有功能</li>
-</ul>
-<p><strong>继承/派生的名词</strong></p>
-<ul>
-<li>基类(base class)/超类(super class)/父类(father class)</li>
-<li>派生类(derived class) / 子类(child class)</li>
-</ul>
-<div class="section level3">
-<h3>单继承</h3>
-<p><strong>语法</strong></p>
-<pre class="python"><code>class 类名(基类名)：
-    语句块</code></pre>
-<p><strong>说明</strong></p>
-<p>单继承是指派生类由一个基类衍生出来的类</p>
-<p><strong>示例</strong></p>
-<p>08_inherit.py 09_inherit2.py</p>
-<p><strong>继承说明</strong></p>
-<ul>
-<li>任何类都直接或间接继承自object类</li>
-<li>object类是一切类的超类（祖类）</li>
-</ul>
-<p>**类的__base__属性**</p>
-<p>__base__属性用来记录类的基类（父类）</p>
-</div>
-<div id="-override" class="section level3">
-<h3>覆盖 override</h3>
-<p><strong>定义</strong></p>
-<p>覆盖是指在有继承关系的类中，子类中实现了与基类同名的方法，在子类实例调用该方法时，实例调用的是子类中的覆盖版本的方法，这种现象叫做覆盖。</p>
-<p><strong>示例</strong></p>
-<p>10_override.py</p>
-<p><strong>子类对象显示调用基类方法的方式</strong></p>
-<p>基类名.方法名(实例， 实际调用传参)</p>
-</div>
-<div id="super" class="section level3">
-<h3>super函数</h3>
-<ul>
-<li>super(type, obj) 返回绑定超类的实例</li>
-<li>super() 返回绑定超类的实例，等同于：
-<ul>
-<li>super(<strong>class</strong>, 实力方法的第一个参数)，必须在方法内调用</li>
-</ul></li>
-</ul>
-<p><strong>示例</strong></p>
-<p>12_super.py</p>
-</div>
-<div class="section level3">
-<h3>显示调用基类的初始化方法</h3>
-<p>当子类中实现__init__方法时，基类的__init__方法并不会被自动调用，此时需要显示调用</p>
-<p><strong>示例</strong></p>
-<p>13_super.py</p>
-</div>
+<div class="section level2">
+<h2>8、表字段的操作</h2>
+<pre><code>1、语法 ：alter table 表名 执行动作;
+    1、添加字段(add)
+        1、添加到末尾
+            alter table 表名 add 字段名 数据类型;
+        2、添加到开始
+            alter table 表名 add 字段名 数据类型 first;
+        3、添加到指定位置
+            alter table 表名 add 字段名 数据类型 after 字段名
+    2、删除字段(drop)
+        alter table 表名 drop 字段名;
+    3、修改数据类型(modify)
+        alter table 表名 modify 字段名 新的数据类型;
+    4、修改字段名(change)
+        alter table 表名 change 旧名 新名 数据类型;
+    5、修改表名(rename)
+        alter table 表名 rename 新表名;</code></pre>
+<p>作业 1、填空题 1、MySQL中的数据类型有 ____、____、____、____ 2、关系型数据库的核心内容是 ___ 即 ___ 2、简答题 1、简述客户端把数据存储到数据库服务器上的过程 2、char和varchar的区别？各自的特点 3、操作题 1、创建一个库school 2、在库中创建表students来存储学生信息,字段如下 学号(id) 要求显示宽度为3位,位数不够用0填充 姓名(name)、年龄(age只能为正数)、成绩(score浮点) 性别(sex单选)、爱好(likes多选)、入学时间(年月日) 3、查看students的表结构 4、在students表中增加一个字段id,加在第一列 5、在表中任意插入5条记录 6、查看所有学生的姓名、成绩和入学时间</p>
 </div>
 </div>
 

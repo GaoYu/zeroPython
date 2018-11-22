@@ -124,322 +124,359 @@ $(document).ready(function () {
 </div>
 
 
-<div class="section level1">
-<h1>面向对象编程</h1>
-<p><strong>什么是对象</strong></p>
-<p>对象是指现实中的物体或实体</p>
-<p><strong>什么是面向对象</strong></p>
-<p>把一切看成对象（实例），让对象之间建立关联关系</p>
-<p><strong>对象的特征</strong></p>
-<ul>
-<li>对象有很多属性（名词）
-<ul>
-<li>姓名、年龄、性别</li>
-<li>用变量存储属性</li>
-</ul></li>
-<li>对象有很多行为（动词）
-<ul>
-<li>学习、吃饭、睡觉</li>
-<li>用函数描述动作</li>
-</ul></li>
-</ul>
+<div id="mysql-day02" class="section level1">
+<h1>MySQL-Day02笔记</h1>
 <div class="section level2">
-<h2>类</h2>
-<ul>
-<li>拥有相同属性和行为的对象分为一组，即为一个类</li>
-<li><p>类是用来描述对象的工具，用类可以创建同类对象</p></li>
-<li><p>车(类) ——-&gt; BYD E6(京A.88888) 实例<br />
-.—-&gt; BMW X5(京B.00000) 实例</p></li>
-<li><p>狗(类) ——–&gt; 小京巴 (户籍号: 000001)<br />
--—–&gt; 导盲犬 (户籍号: 000002)</p></li>
-<li><p>int(类) ——&gt; 100(对象/实例)<br />
--—-&gt; 200(对象/实例)</p></li>
-</ul>
+<h2>1、名词介绍</h2>
+<pre><code>1、DB(Database)
+    DB就是数据库，是存储数据的仓库
+2、DBMS(Database Management System)
+    数据库管理系统
+    管理数据库的软件，MySQL、Oracle ......
+3、DBS(Database System)
+    数据库系统
+    DBS = DB(存储) + DBMS(数据库软件) + 数据库应用(财务管理系统,人事管理系统) + 用户</code></pre>
+</div>
+<div id="where" class="section level2">
+<h2>2、where条件子句(配合查询、修改、删除操作)</h2>
+<pre><code>1、语法格式
+    select * from 表名 where 条件;</code></pre>
+</div>
+<div class="section level2">
+<h2>3、表记录管理(删除、更改)</h2>
 <div class="section level3">
-<h3>类的创建语句</h3>
-<p><strong>语法</strong></p>
-<pre class="python"><code>class 类名（继承列表）:
-    '''类的文档字符串'''
-    实例方法定义（类内的函数成为方法methon）
-    类变量定义
-    类方法定义
-    静态方法定义</code></pre>
-<p><strong>作用</strong></p>
-<ul>
-<li>创建一个类</li>
-<li>用于描述此类对象的行为和属性</li>
-<li>类用于创建此类的一个或多个对象（实例）</li>
-</ul>
+<h3>1、删除表记录</h3>
+<pre><code>    1、delete from 表名 where 条件;
+    2、注意
+        delete语句后如果不加where条件子句会将表中所有记录全部删除</code></pre>
 </div>
 <div class="section level3">
-<h3>类和对象</h3>
-<p>类 | 对象 实例 class | object instance</p>
+<h3>2、更新表记录</h3>
+<pre><code>    1、update 表名 set 字段名=值1,... where 条件;
+    2、注意
+        update语句后如果不加where条件子句会将表中所有该字段的值更改</code></pre>
 </div>
 <div class="section level3">
-<h3>构造函数</h3>
-<pre class="python"><code>表达式:
-    类名([创建传参列表])</code></pre>
-<p><strong>作用</strong></p>
-<p>创建这个类的实例对象，并返回此实例对象的引用关系</p>
-<p><strong>实例(对象)说明</strong></p>
-<ul>
-<li>实例有自己的作用域和名字空间，可以为该实例添加实例变量（属性）</li>
-<li>实例可以调用类方法和实例方法</li>
-<li>实例可以访问类变量和实例变量</li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Dog:
-    pass
-dog1 = Dog()</code></pre>
+<h3>3、练习</h3>
+<pre><code>    1、创建库SANGUO
+        create database SANGUO;
+    2、在SANGUO库中创建一张表sanguo,指定字符集utf8,字段如下：
+        id name gongji fangyu sex country 数据类型及宽度自己定义
+        create table sanguo(
+        id int,
+        name char(15),
+        sex enum(&quot;男&quot;,&quot;女&quot;),
+        country char(10)
+        )default charset=utf8;
+    3、在sanguo表中插入记录
+        1 曹操   男  魏国
+        2 小乔   女  吴国
+        3 诸葛亮 男  蜀国
+        4 貂蝉   女  东汉
+        5 赵子龙 男  蜀国
+        6 魏延   男  蜀国
+        insert into sanguo values
+        (1,&quot;曹操&quot;,&quot;男&quot;,&quot;魏国&quot;),
+        (2,&quot;小乔&quot;,&quot;女&quot;,&quot;吴国&quot;),
+        (3,&quot;诸葛亮&quot;,&quot;男&quot;,&quot;蜀国&quot;),
+        (4,&quot;貂蝉&quot;,&quot;女&quot;,&quot;东汉&quot;),
+        (5,&quot;赵子龙&quot;,&quot;男&quot;,&quot;蜀国&quot;),
+        (6,&quot;魏延&quot;,&quot;男&quot;,&quot;蜀国&quot;);
+    4、查找所有蜀国人的信息(select后加where条件)
+        select * from sanguo where country=&quot;蜀国&quot;;
+    5、查找一下女人的信息,只显示姓名和性别
+        select name,sex from sanguo where sex=&quot;女&quot;;
+    6、把曹操的国籍改为蜀国
+        update sanguo set country=&quot;蜀国&quot; where name=&quot;曹操&quot;;
+    7、把魏延的性别改为 女，国籍改为 泰国
+        update sanguo set sex=&quot;女&quot;,country=&quot;泰国&quot; where name=&quot;魏延&quot;;
+    8、把id为2的记录的名字改为司马懿，性别男，国家改为魏国
+        update sanguo set name=&quot;司马懿&quot;,sex=&quot;男&quot;,country=&quot;魏国&quot; where id=2;
+    9、删除所有泰国人
+        delete from sanguo where country=&quot;泰国&quot;;
+    10、删除所有英雄记录
+        delete from sanguo;</code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2>4、运算符操作(配合查询、修改、删除)</h2>
+<div class="section level3">
+<h3>1、数值比较&amp;字符比较</h3>
+<pre><code>    1、数值比较运算符：=、!=、&gt;、&gt;=、&lt;、&lt;=
+    2、字符比较运算符：=、!=
+    3、语法
+        查：select * from 表名 where 字段名 运算符 数字/字符;
+        改：update 表名 set 字段名=值,... where 运算符/字符;
+        删：delete from 表名 where 字段名 运算符 数字/字符;
+    4、练习
+        1、找出攻击力高于150的英雄的名字和攻击力值
+            select name,gongji from sanguo where gongji &gt; 150;
+        2、查找蜀国的英雄的信息
+            select * from sanguo where country=&quot;蜀国&quot;;
+        3、将赵云的攻击力改为 666 ，防御改为88
+            update sanguo set gongji=666,fangyu=88 where name = &quot;赵云&quot;;
+        4、在表中插入一条记录，魏延
+            insert into sanguo values(10,&quot;魏延&quot;,101,1,&quot;蜀国&quot;);
+        5、删除表中名字为 魏延 的记录
+            delete from sanguo where name = &quot;魏延&quot;;</code></pre>
 </div>
 <div class="section level3">
-<h3>实例方法</h3>
-<pre class="python"><code>class 类名(继承列表):
-    def 实例方法名(self, 参数1,参数2,... ):
-        '''实例方法的文档字符串'''
-        语句块</code></pre>
-<p><strong>作用</strong></p>
-<p>用于描述一个对象的行为，让此类型的全部对象都拥有相同的行为</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>实例方法实质是函数，是定义在类内部的函数</li>
-<li>实例方法至少有一个形参，第一个形参代表调用这个方法的实例，一般命名为’self’</li>
-</ul>
-<p><strong>实例方法的调用语法</strong></p>
-<pre class="python"><code>实例.实例方法名（调用传参）
-
-类名.实例方法名(实例，调用传参)</code></pre>
+<h3>2、逻辑比较</h3>
+<pre><code>    1、运算符：and(多个条件同时满足)  or(多个条件有一个条件满足就可以)
+    2、练习
+        1、找出攻击值大于200的蜀国英雄的名字及攻击值
+            select name,gongji from sanguo where gongji &gt; 200 and country=&quot;蜀国&quot;;
+        2、将吴国英雄中攻击值为110的英雄的攻击值设置为100，防御值设置为60
+            update sanguo set gongji=100,fangyu=60 where country=&quot;吴国&quot; and gongji=110;
+        3、查找蜀国和魏国的英雄
+            select * from sanguo where country=&quot;蜀国&quot; or country=&quot;魏国&quot;;    </code></pre>
 </div>
 <div class="section level3">
-<h3>实例属性</h3>
-<p>每个实例都可以有自己的变量，此变量称为实例变量（也叫属性）</p>
-<p><strong>属性使用方法</strong></p>
-<p>实例.属性名</p>
-<p><strong>赋值规则</strong></p>
-<ul>
-<li>首次为属性赋值则创建此属性</li>
-<li>再次为属性赋值则必改变属性的绑定关系</li>
-</ul>
-<p><strong>作用</strong></p>
-<p>用来记录对象自身的数据</p>
+<h3>3、范围内比较</h3>
+<pre><code>    1、运算符：between and 、in 、not in
+    2、语法
+        字段名 between 值1 and 值2
+        字段名 in (值1,值2,... ...)
+        字段名 not in (值1,值2，... ...)
+    3、示例
+        1、查找攻击值在100-200之间的蜀国英雄信息
+            select * from sanguo where gongji between 100 and 200 and country=&quot;蜀国&quot;;
+        2、查找id在1,3,5,7中的英雄的id和姓名
+            select id,name from sanguo where id in (1,3,5,7);
+        3、找到蜀国和吴国以外的国家的女英雄
+            select * from sanguo where country not in (&quot;蜀国&quot;,&quot;吴国&quot;) and sex=&quot;F&quot;;
+        4、找到编号为1或者3或者5的蜀国英雄和貂蝉的编号、姓名和国家
+            select id,name from sanguo where id in (1,3,5) and country=&quot;蜀国&quot; or name=&quot;貂蝉&quot;;</code></pre>
+</div>
+<div id="-" class="section level3">
+<h3>4、匹配空 非空</h3>
+<pre><code>    1、空 ：is null
+    2、非空 ：is not null
+    3、练习
+        1、查找姓名为NULL的蜀国女英雄信息
+            select * from sanguo where name is null and country=&quot;蜀国&quot; and sex=&quot;F&quot;;
+        2、查找姓名为&quot;&quot;的英雄的id、姓名和国家
+            select id,name,country from sanguo where name=&quot;&quot;;
+        2、注意
+            1、null : 空值，必须用is 或者 is not去操作
+            2、&quot;&quot;   : 空字符串，用 = 或者 != 去操作
+    练习：
+        1、查找id在3,5,7中，并且攻击力大于150的 蜀国的英雄的记录
+        select * from sanguo where id in (3,5,7) and gongji &gt; 150;
+        2、查找国家不是蜀国和吴国，或者防御力大于60的英雄的名字 防御力 和 国家
+        select name,fangyu,country from sanguo where country not in(&quot;蜀国&quot;,&quot;吴国&quot;) or fangyu&gt;60;
+        3、将国家为吴国，并且攻击力在1-100之间的防御力改为88
+        update sanguo set fangyu=88 where country=&quot;吴国&quot; and gongji between 1 and 100;
+        4、在表中插入一条记录，id为99，名字为黄月英，其他信息自己定
+        insert into sanguo values(99,&quot;黄月英&quot;,200,90,&quot;蜀国&quot;);
+        5、删除表中id为99，并且名字为黄月英的记录
+        delete from sanguo where id = 99;</code></pre>
 </div>
 <div class="section level3">
-<h3>属性的删除</h3>
-<p>用del语句可以删除一个对象的实例变量</p>
-<p><strong>语法</strong></p>
-<pre class="python"><code>del 对象.实例变量名</code></pre>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Cat:
-    pass
-  
-c1 = Cat()
-c1.color = '白色'
-print(c1.color)
-del c1.color   #删除属性
-print(c1.color) #属性错误，已删除</code></pre>
+<h3>5、模糊比较</h3>
+<pre><code>    1、语法
+        字段名 like 表达式
+    2、表达式
+        1、_ : 匹配单个字符
+        2、% : 匹配0到多个字符
+    示例：
+        1、select id,name from sanguo where name like &quot;_%_&quot;; # 名字至少有两个字符的
+        2、select id,name from sanguo where name like &quot;%&quot;; # 匹配所有的记录
+        3、select id,name from sanguo where name like &quot;___&quot;; # 匹配名字为三个字的记录
+        4、select id,name from sanguo where name like &quot;赵%&quot;; # 匹配所有姓赵的记录</code></pre>
+</div>
+</div>
+<div id="sql" class="section level2">
+<h2>5、SQL查询</h2>
+<div class="section level3">
+<h3>1、总结(执行顺序)</h3>
+<pre><code>    0、  select...聚合函数 from ...
+    1、  where...
+    2、  group by ...
+    4、  having ...
+    5、  order by ...
+    6、  limit ...;</code></pre>
+</div>
+<div id="order-by" class="section level3">
+<h3>2、order by</h3>
+<pre><code>    1、作用：给查询的结果进行排序
+    2、语法格式：order by 字段名 排序方式;
+    2、排序方式
+        1、ASC(默认) ：升序
+        2、DESC ：降序
+    3、练习
+        1、将英雄按防御值从低到高排序
+            select * from sanguo order by gongji asc;
+        2、将蜀国英雄按攻击值从高到低排序
+            select * from sanguo where country = &quot;蜀国&quot; order by gongji desc;
+        3、将魏蜀两国的男英雄中名字为三个字的英雄按防御值升序排列
+            select * from sanguo where country in (&quot;蜀国&quot;,&quot;魏国&quot;) and sex=&quot;M&quot; (and name like &quot;___&quot;) order by fangyu asc;</code></pre>
+</div>
+<div id="limitsql" class="section level3">
+<h3>3、limit(永远放在SQL语句的最后写)</h3>
+<pre><code>    1、作用 ：限制显示查询记录的记录个数
+    2、用法
+        1、limit n --&gt;显示几条记录
+        2、limit m,n 
+            m - &gt; 从第几条记录开始显示，n表示显示几条
+            ## m的值是从0开始计算的，3则表示第四条记录
+        3、练习
+            1、查找攻击值前三名且名字不为空值的蜀国的英雄的姓名、攻击值及国家
+                select name,gongji,country from sanguo where country=&quot;蜀国&quot; and (name is not null) order by gongji desc limit 3;
+            2、查找防御值倒数第二名至倒数第四名的蜀国英雄的记录
+                select * from sanguo where country=&quot;蜀国&quot; order by fangyu limit 1,3;</code></pre>
 </div>
 <div class="section level3">
-<h3>初始化方法</h3>
-<p>对新创建的对象添加实例变量（属性）或相应的资源</p>
-<p><strong>语法格式</strong></p>
-<pre class="python"><code>class 类名(继承列表):
-    def __init__(self[, 形参列表])：
-        语句块</code></pre>
-<p><strong>说明</strong></p>
-<ul>
-<li>初始化方法名必须为 <strong>init</strong>，不可变</li>
-<li>初始化方法会在构造函数创建实例后自动调用，且此实例自身通过第一个参数self传入__init__方法</li>
-<li>构造函数的实参将通过__init__方法的形参列表传入__init__方法中</li>
-<li>初始化方法内部如果需要返回则只能返回None</li>
-</ul>
-<p><strong>示例</strong></p>
-<p>05_init_method.py</p>
+<h3>4、聚合函数</h3>
+<pre><code>    1、分类
+        1、avg(字段名) : 求字段的平均值
+        2、sum(字段名) : 求字段的和
+        3、max(字段名) : 求字段的最大值
+        4、min(字段名) : 求字段的最小值
+        5、count(字段名) : 统计该字段的记录的个数
+    2、练习
+        1、攻击力最强值是多少
+            select max(gongji) as best from sanguo;
+        2、统计一下表中id,name字段分别有多少条记录
+            select count(id),count(name) from sanguo;
+            # 空值NULL被统计，空字符串&quot;&quot;不会被统计
+        3、计算蜀国英雄的总攻击力
+            select sum(gongji) from sanguo where country = &quot;蜀国&quot;;
+        4、统计蜀国英雄中攻击值大于200的英雄的数量
+            select count(*) from sanguo where country=&quot;蜀国&quot; and gongji&gt;200;</code></pre>
+</div>
+<div id="group-by" class="section level3">
+<h3>5、group by</h3>
+<pre><code>    1、作用：给查询的结果进行分组
+    示例：
+        1、查询sanguo表中一共有几个国家
+            select country from sanguo group by country;
+        2、计算所有国家的平均攻击力
+            select country,avg(gongji) from sanguo group by country;
+        3、查找所有国家中 英雄数量最多 的前2名 的国家名称及英雄数量
+            select country,count(*) as number from sanguo group by country order by number limit 2; 
+        注意：
+         1、group by后的字段名必须要为select之后的字段名
+         2、group by处理的是group by之后的所有字段，如果查询字段和group by之后的字段不一致，则必须要对该字段值做聚合处理(聚合函数)</code></pre>
+</div>
+<div id="having" class="section level3">
+<h3>6、having</h3>
+<pre><code>    1、作用 ：对查询的结果进行进一步筛选
+    2、练习
+        1、找出平均攻击力大于105的国家的前2名,显示国家名和平均攻击力
+            select country,avg(gongji) as pjgj from sanguo group by country having pjgj&gt;150 order by pjgj desc limit 2; 
+    3、注意
+        1、having语句通常与group by语句联合使用，用来过滤由group by语句返回的记录集
+        2、having语句的存在弥补了where关键字不能与聚合函数联合使用的不足，where操作的是表中实际存在的字段，having操作的是聚合函数生成的显示列</code></pre>
+</div>
+<div id="distinct" class="section level3">
+<h3>7、distinct</h3>
+<pre><code>    1、作用
+        不显示字段的重复值
+    2、练习
+        1、sanguo表中一共有多少个国家
+            select distinct country from sanguo;
+        2、计算蜀国一共有多少个英雄
+            select count(distinct name) from sanguo where country=&quot;蜀国&quot;;
+        3、注意
+            1、distinct处理的是distinct与from之间的所有字段，所有字段必须全部相同才能去重
+            2、distinct不能对任何字段做聚合处理</code></pre>
 </div>
 <div class="section level3">
-<h3>析构方法</h3>
-<pre class="python"><code>class 类名(继承列表):
-    def __del__(self):
-    语句块</code></pre>
-<p><strong>说明</strong></p>
-<p>对象销毁时被自动调用</p>
-<p><strong>作用</strong></p>
-<p>清理此对象所占用的资源</p>
-<p><strong>python不建议在析构方法内做任何事情，因为对象销毁的原因</strong></p>
+<h3>8、查询表记录时做数学运算</h3>
+<pre><code>    1、运算符
+        +  -  *  /  %
+    2、查询显示时所有英雄攻击力全部 * 10
+        select id,name,country,gongji*10 as xgj from sanguo;
+    3、查询显示时所有英雄的防御力 + 5
+        select id,name,country,fangyu+5 as xfy from sanguo;</code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2>6、约束</h2>
+<div class="section level3">
+<h3>1、作用</h3>
+<pre><code>    为了保证数据的完整性、一致性、有效性的规则
+    可以限制无效的数据插入到数据表里面</code></pre>
 </div>
 <div class="section level3">
-<h3>预置实例属性</h3>
-<p>**__dict__属性**</p>
-<p>此属性绑定一个存储此实例自身变量的字典</p>
-<pre class="python"><code>class Dog:
-    pass
-dog1 = Dog()
-print(dog1.__dict__)
-dog1.kinds = '京巴'
-print(dog1.__dict__)</code></pre>
-<p>**__class__属性**</p>
-<p>此属性用来绑定创建此实例的类</p>
-<p>可以用于借助属性来访问创建实例</p>
-<pre class="python"><code>class Dog:
-    pass
-    
-dog1 = Dog()
-dog2 = Dog()
-dog3 = dog1.__class__  #创建dog1的同类对象</code></pre>
+<h3>2、约束分类</h3>
+<pre><code>    1、默认约束(default)
+        1、作用 ：在插入记录时，如果不为该字段赋值，则使用默认值
+        2、格式 ：字段名 数据类型 default 值
+    2、非空约束(not null)
+        1、作用 ：不允许将该字段的值有NULL记录
+        2、格式 ：字段名 数据类型 not null</code></pre>
+</div>
+<div id="index" class="section level3">
+<h3>3、索引(index)</h3>
+<pre><code>1、定义
+    对数据库中表的一列或者多列的值进行排序的一种结构(MySQL中用二叉树Btree方式)
+2、优点
+    可以加快数据的检索速度
+3、缺点
+    1、当对表中的数据进行增加、删除和修改的时候，索引也要动态维护，降低了数据的维护速度
+    2、索引需要占用物理空间    </code></pre>
 </div>
 <div class="section level3">
-<h3>用于类的函数</h3>
-<ul>
-<li>isinstance(obj, class_or_tuple)
-<ul>
-<li>返回这个对象obj是否为某个类class或某些类的实例，如果是则返回True,否则返回 False</li>
-</ul></li>
-<li>type(obj) 返回对象的类型</li>
-<li>issubclass(cls, class_or_tuple)
-<ul>
-<li>判读一个类是否继承自其他的类，如果此类cls是class或tuple中的一个派生子类则返回True，否则返回False</li>
-</ul></li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Dog:
-    pass
-class Cat:
-    pass
-animal = Dog()
-isinstance(animal, Dog)  #True
-isinstance(animal, Cat)  #False
-isinstance(animal, (Cat, int, list)) #False
-instance(ainimal(Cat, int , dog))    #True
-
-class A:
-    pass
-class B(A):
-    pass
-class C(B):
-    pass
-issubclass(C, (A, B))  #True
-issubclass(C, (int, str)) #False
-</code></pre>
-</div>
-<div id="class-variable" class="section level3">
-<h3>类变量class variable(也叫类属性)</h3>
-<p>类变量是类的属性，此属性属于类</p>
-<p><strong>作用</strong></p>
-<p>用来记录类相关的数据</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>类变量可以通过类直接访问</li>
-<li>类变量可以通过类的实例直接访问</li>
-<li>类变量可以通过此类的实例的__class__属性间接访问</li>
-</ul>
-<p><strong>示例</strong></p>
-<pre class="python"><code>class Human:
-    count = 0 #创建类变量</code></pre>
-</div>
-<div class="section level3">
-<h3>类的文档字符串</h3>
-<p>类内第一个没有赋值给任何变量的字符串是类的文档字符串</p>
-<p><strong>说明</strong></p>
-<ul>
-<li>类的文档字符串用类的__doc__属性可以访问</li>
-<li>类的文档字符串可以用help()函数查看</li>
-</ul>
-<p><strong>实例</strong></p>
-<p>classdoc.py</p>
-</div>
-<div id="__slots__" class="section level3">
-<h3>类的__slots__列表</h3>
-<p><strong>作用</strong></p>
-<p>限定一个类的实例只能有固定的属性（实例变量），通常为防止错写属性名而发生运行时错误。</p>
-<p><strong>示例</strong></p>
-<p>05_slots.py</p>
-<p><strong>说明</strong></p>
-<p>含有__slots__列表的类创建的实例对象没有__dict__属性，即此实例不用字典来保存对象的属性（实例变量）</p>
-</div>
-<div id="-classmethod" class="section level3">
-<h3>类方法 <span class="citation">@classmethod</span></h3>
-<p>类方法是描述类的行为的方法，类方法属于类</p>
-<p><strong>说明</strong></p>
-<ul>
-<li><a href="mailto:类方法需要用@classmethod装饰器定义">类方法需要用@classmethod装饰器定义</a></li>
-<li>类方法至少有一个形参，第一个形参用于绑定类，约定写为‘cls’</li>
-<li>类与该类的实例都可以调用类方法</li>
-<li>类方法不能访问此类创建的实例的属性（只能访问类变量）</li>
-</ul>
-<p><strong>示例</strong></p>
-<p>05_classmethod.py</p>
-</div>
-<div id="staticmethod" class="section level3">
-<h3><a href="mailto:静态方法@staticmethod">静态方法@staticmethod</a></h3>
-<p>静态方法不属于类，也不属于类的实例，它相当于定义在类内的普通函数，只是它的作用域属于类</p>
-<p><strong>示例</strong></p>
-<p>07_staticmethod.py</p>
-</div>
-</div>
-<div id="inheritancederived" class="section level2">
-<h2>继承inheritance和派生derived</h2>
-<ul>
-<li>继承，从已有的类中衍生出新类，新类具有原类的行为，并能扩展新的行为
-<ul>
-<li>继承是延续旧类的功能</li>
-</ul></li>
-<li>派生，是从一个已有类中衍生（创建）新类，在新类上可以添加新的属性和行为
-<ul>
-<li>派生是为了在旧类的基础上添加新的功能</li>
-</ul></li>
-</ul>
-<p><strong>作用</strong></p>
-<ul>
-<li>用继承派生机制,可以将一些共有功能加在基类中,实现代码的共享</li>
-<li>在不改变基类的基础上改变原有功能</li>
-</ul>
-<p><strong>继承/派生的名词</strong></p>
-<ul>
-<li>基类(base class)/超类(super class)/父类(father class)</li>
-<li>派生类(derived class) / 子类(child class)</li>
-</ul>
-<div class="section level3">
-<h3>单继承</h3>
-<p><strong>语法</strong></p>
-<pre class="python"><code>class 类名(基类名)：
-    语句块</code></pre>
-<p><strong>说明</strong></p>
-<p>单继承是指派生类由一个基类衍生出来的类</p>
-<p><strong>示例</strong></p>
-<p>08_inherit.py 09_inherit2.py</p>
-<p><strong>继承说明</strong></p>
-<ul>
-<li>任何类都直接或间接继承自object类</li>
-<li>object类是一切类的超类（祖类）</li>
-</ul>
-<p>**类的__base__属性**</p>
-<p>__base__属性用来记录类的基类（父类）</p>
-</div>
-<div id="-override" class="section level3">
-<h3>覆盖 override</h3>
-<p><strong>定义</strong></p>
-<p>覆盖是指在有继承关系的类中，子类中实现了与基类同名的方法，在子类实例调用该方法时，实例调用的是子类中的覆盖版本的方法，这种现象叫做覆盖。</p>
-<p><strong>示例</strong></p>
-<p>10_override.py</p>
-<p><strong>子类对象显示调用基类方法的方式</strong></p>
-<p>基类名.方法名(实例， 实际调用传参)</p>
-</div>
-<div id="super" class="section level3">
-<h3>super函数</h3>
-<ul>
-<li>super(type, obj) 返回绑定超类的实例</li>
-<li>super() 返回绑定超类的实例，等同于：
-<ul>
-<li>super(<strong>class</strong>, 实力方法的第一个参数)，必须在方法内调用</li>
-</ul></li>
-</ul>
-<p><strong>示例</strong></p>
-<p>12_super.py</p>
-</div>
-<div class="section level3">
-<h3>显示调用基类的初始化方法</h3>
-<p>当子类中实现__init__方法时，基类的__init__方法并不会被自动调用，此时需要显示调用</p>
-<p><strong>示例</strong></p>
-<p>13_super.py</p>
+<h3>4、索引类型</h3>
+<pre><code>    1、普通索引(index)
+        1、使用规则
+            1、一个表中可以有多个index字段
+            2、字段的值可以有重复，且可以为null值
+            3、经常把做查询条件的字段设置为index字段
+            4、index字段的key标志是MUL 
+        2、创建
+            1、创建表时创建
+                index(字段名1),index(字段名2)
+                create table t1(
+                id int,
+                name char(20),
+                age tinyint unsigned,
+                index(id),
+                index(name)
+                );
+            2、在已有表中创建index
+                1、语法
+                    create index 索引名 on 表名(字段名);
+                注意：
+                    索引名一般和字段名一样
+        3、查看普通索引
+            1、desc 表名;  --&gt; 查看key标志为MUL
+            2、show index from 表名;
+        4、删除索引
+            drop index 索引名 on 表名;
+            drop index id on t1;
+            drop index name on t1;
+            注意：
+                删除普通索引只能一个一个删除
+    2、唯一索引(unique key)
+        1、使用规则
+            1、一个表里面可以有个unique字段
+            2、unique字段的值不允许重复，但可以为空
+            3、unique的key标志是 UNI
+        2、创建唯一索引
+            1、创建表时创建
+                1、方式1
+                    字段名 数据类型 unique,
+                    create table t7(
+                    id int unique,
+                    name char(15)
+                    );
+                2、方式2
+                    unique(字段名),
+                    unique(字段名)
+                    create table t10(
+                    id int,
+                    name char(15),
+                    unique(id),
+                    unique(name)
+                    );
+            2、已有表中创建
+                create unique index 索引名 on 表名(字段名);
+        3、删除唯一索引(unique)
+            drop index 索引名 on 表名;
+            注意：删除index、unique index只能一个一个删除</code></pre>
 </div>
 </div>
 </div>
